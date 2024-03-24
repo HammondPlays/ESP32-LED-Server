@@ -1,0 +1,68 @@
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "c:/Users/Nicholas/Documents/PlatformIO/Projects/LED/include",
+                "c:/Users/Nicholas/Documents/PlatformIO/Projects/LED/src",
+                "c:/Users/Nicholas/Documents/PlatformIO/Projects/LED/.pio/libdeps/nanoatmega328/Adafruit NeoPixel",
+                "c:/Users/Nicholas/Documents/PlatformIO/Projects/LED/.pio/libdeps/nanoatmega328/WiFiManager",
+                "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/variants/eightanaloginputs",
+                "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/Wire/src"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "c:/Users/Nicholas/Documents/PlatformIO/Projects/LED/include",
+                    "c:/Users/Nicholas/Documents/PlatformIO/Projects/LED/src",
+                    "c:/Users/Nicholas/Documents/PlatformIO/Projects/LED/.pio/libdeps/nanoatmega328/Adafruit NeoPixel",
+                    "c:/Users/Nicholas/Documents/PlatformIO/Projects/LED/.pio/libdeps/nanoatmega328/WiFiManager",
+                    "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/variants/eightanaloginputs",
+                    "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "C:/Users/Nicholas/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60114",
+                "ARDUINO_AVR_NANO",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++11",
+            "compilerPath": "C:/Users/Nicholas/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        },
+        {
+            "name": "test",
+            "includePath": [],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:/Users/Nicholas/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}
