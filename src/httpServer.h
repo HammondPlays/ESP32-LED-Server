@@ -2,6 +2,8 @@
 #define WORDCLOCK_SERVER_H
 
 #include <WebServer.h>
+#include <controller.h>
+#include <gui.h>
 
 class HttpServer {
   public:

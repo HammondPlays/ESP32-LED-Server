@@ -1,17 +1,10 @@
-#ifndef WORDCLOCK_GUI_H
-#define WORDCLOCK_GUI_H
+#include <Arduino.h>
 
-class Gui {
-  static String pad(int value);
-  static String htmlOption(const String& label, const String& value, const String& store);
-  static String getTimeForm();
-  static String createStyleSheet();
-  static String createNav();
-  static String createScript();
-  static String createContent();
-  static String createFooter();
-
-  public:
+class Gui
+{
+public:
+    static String style();
     static String index();
 };
-#endif
+
+

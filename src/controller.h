@@ -1,16 +1,8 @@
-#ifndef WORDCLOCK_CONTROLLER_H
-#define WORDCLOCK_CONTROLLER_H
+#include <httpServer.h>
 
 class Controller {
-  public:
+  public:    
     static void index();
-    static void saveColor();    
-    static void saveTime();    
-    static void saveDnd();    
-    static void deleteWiFi();
-    static void getLogoSvg();
-    static void getManifest();
     static void notFound();
+    static String SendHTML(uint8_t led1stat,uint8_t led2stat);
 };
-
-#endif

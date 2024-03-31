@@ -2,6 +2,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <animation.h>
 #include <wifiService.h>
+#include <httpServer.h>
 
 #define LED_PIN   32
 #define LED_COUNT 3
@@ -13,13 +14,17 @@ Animation animation = Animation(stripe, LED_COUNT, DELAY);
 
 void setup() {
   WifiService::setup();
-  animation.setup();
+  //animation.setup();
+  HttpServer::setup();
   Serial.begin(9600);
+  Serial.println(WiFi.localIP());
 }
 
 void loop() {
   //Serial.println(animation.color);
-  animation.boomerang();
+  //animation.boomerang();
+  Serial.println("Running");
+  HttpServer::loop();
 }
 
 
