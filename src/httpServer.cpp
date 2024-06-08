@@ -1,9 +1,19 @@
 #include "httpServer.h"
-    
-void HttpServer::setup() {
-    HttpServer::ip = WiFi.localIP().toString();
-    
+
+void HttpServer::setup() {    
     HttpServer::web.on("/", Controller::index);
+    HttpServer::web.on("/led-state", Controller::ledSwitchOnOff);
+
+    HttpServer::web.on("/brightness", HTTP_PUT, []() {
+        String brightness = web.pathArg(0);
+        Controller::setBrightness(brightness.toDouble());
+    });
+
+        HttpServer::web.on("/animation", HTTP_PUT, []() {
+        String animation = web.pathArg(0);
+        Controller::setAnimationType(animation.toInt());
+    });
+
 	HttpServer::web.onNotFound(Controller::notFound);
     HttpServer::web.begin();
 }
@@ -13,4 +23,3 @@ void HttpServer::loop() {
 }
 
 WebServer HttpServer::web(80);
-String HttpServer::ip;

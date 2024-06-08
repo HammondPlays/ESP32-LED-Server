@@ -1,16 +1,33 @@
 #include "animation.h"
 
-    Animation::Animation(Adafruit_NeoPixel neoPixel, int ledCount, int delay) {
-        this->stripe = neoPixel;
+    Animation::Animation(int ledCount, int delay) {
         this->ledCount = ledCount;
         this->delayTime = delay;
         this->color = 1;
-
-        
     }
 
     void Animation::setup(){
-        this->stripe.begin();
+        FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, this->ledCount);
+    }
+
+    void Animation::loop(){
+        if (!Config::ledState) {
+            ledSwitchOff();
+            return;
+        }
+        
+        switch (Config::animationType)
+        {
+        case FADING:
+            fading();
+            return;
+        case BOOMERANG:
+            boomerang();
+            return;
+        case RAINBOW:
+            rainbow();
+            return;
+        }
     }
 
     uint8_t Animation::isNthBitSet (int n) {
@@ -19,28 +36,59 @@
 
     }
 
-    uint32_t Animation::getColor() {
+    ColorRGB Animation::getColor() {
         uint8_t r = isNthBitSet(0), 
                 g = isNthBitSet(1),     
                 b = isNthBitSet(2);
         this->color = ((this->color + 1) ) % 8;
-        return this->stripe.Color(r,g,b);
+       
+        return ColorRGB(r,g,b);
+    }
+
+    void Animation::fading(){
+        for (int i = 0; i < this->ledCount; i++)
+        {
+            ColorRGB currentColor = getColor();
+            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b); 
+            
+            delay(this->delayTime);
+        }
+        FastLED.show();
     }
 
     void Animation::boomerang(){
-        uint32_t currentColor = getColor();
+        ColorRGB currentColor = getColor();
         for (int i = 0; i < this->ledCount; i++)
         {
-            stripe.setPixelColor(i, currentColor);
-            stripe.show();
+            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
+            FastLED.show();
             delay(this->delayTime);
         }
         currentColor = getColor(); 
         for (int i = this->ledCount-1; i >= 0; i--)
         {
-            stripe.setPixelColor(i, currentColor);
-            stripe.show();
+            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
+            FastLED.show();
             delay(this->delayTime);
+        }
+    }
+
+    //TODO: rainbow color animation
+    void Animation::rainbow(){
+        for (int i = 0; i < this->ledCount; i++)
+        {
+            ColorRGB currentColor = getColor();
+            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
+            FastLED.show();
+            delay(this->delayTime);
+        }
+    }
+
+    void Animation::ledSwitchOff(){
+        for (int i = 0; i < this->ledCount; i++)
+        {
+            leds[i].setRGB(0,0,0);
+            FastLED.show();
         }
     }
 

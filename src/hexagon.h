@@ -1,12 +1,18 @@
-#include <Adafruit_NeoPixel.h>
+#ifndef HEXAGON_H
+#define HEXAGON_H
+
+#include <FastLED.h>
+#include <colorRGB.h>
 
 class Hexagon {
     public:
     Hexagon();
     Hexagon(int, int);
-    void display(Adafruit_NeoPixel, uint32_t);
+    void display(CRGB[], ColorRGB);
 
     private:
     int hexagonIndex;
     int ledCount;
 };
+
+#endif // HEXAGON_H

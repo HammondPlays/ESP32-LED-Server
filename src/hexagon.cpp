@@ -11,10 +11,10 @@ Hexagon::Hexagon(int hexagonIndex, int ledCount) {
     this->ledCount = ledCount;
 }
 
-void Hexagon::display(Adafruit_NeoPixel pixels, uint32_t color) {
+void Hexagon::display(CRGB* pixels, ColorRGB color) {
     for (int i = this->hexagonIndex * ledCount; i < this->hexagonIndex * (ledCount + 1); i++)
     {
-        pixels.setPixelColor(i, color);
+        pixels[i].setRGB(color.r, color.g, color.b);
     }
-    pixels.show();
+    FastLED.show();
 }

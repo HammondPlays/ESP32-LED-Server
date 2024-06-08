@@ -3,7 +3,7 @@
 String Gui::style() {
     String style = "<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
     style += "body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;} h3 {color: #444444;margin-bottom: 50px;}\n";
-    style += ".home-button {background-image: url('images/home.png');background-size: vocer; width: 100%; height: 100%;}\n";
+    style += ".home-button { position: absolute; top: 10px; left: 10px; background-image: url('https://img.icons8.com/?size=50&id=2797&format=png'); background-size: cover; width: 40px; height: 40px; display: inline-block; }\n";
     style += ".button {display: block;width: 80px;background-color: #3498db;border: none;color: white;padding: 13px 30px;text-decoration: none;font-size: 25px;margin: 0px auto 35px;cursor: pointer;border-radius: 4px;}\n";
     style += ".button-on {background-color: #3498db;}\n";
     style += ".button-on:active {background-color: #2980b9;}\n";
