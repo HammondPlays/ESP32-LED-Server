@@ -5,7 +5,7 @@ class Controller {
   public:    
     static void index();
     static void ledSwitchOnOff();
-    static void setBrightness(double brightness);
+    static void setBrightness(int brightness);
     static void setAnimationType(int animationType);
     static void notFound();
     static String SendHTML(uint8_t led1stat,uint8_t led2stat);
