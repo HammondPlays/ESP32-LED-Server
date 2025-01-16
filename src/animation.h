@@ -8,33 +8,41 @@
 #include <animationType.h>
 #include <colorRGB.h>
 
-#define LED_PIN   32
-#define LED_COUNT 3
+#define LED_PIN 32
+#define LED_COUNT 100
 
-class Animation {
-    public:
-
+class Animation
+{
+public:
     Animation(int, int);
     void setup();
     void loop();
     void ledSwitchOff();
-    void fading();
     void boomerang();
     void rainbow();
     byte color;
 
-    private:
+private:
     int ledCount;
     int delayTime;
     CRGB leds[LED_COUNT];
 
-    //Fading
+    // Rainbow
+    int rainbowColorIndex;
+    ColorRGB Wheel(byte wheelPosition);
+
+    // Boomerang
+    int boomerangLedIndex;
+    int8_t boomerangDirection = 1; //Positive forward, Negative backwards
+    ColorRGB boomerangColor = ColorRGB(0,0,0);
+    
+    // Fading
     int staticTime;
     Hexagon hexagons[];
 
-    ColorRGB getColor();
-    uint8_t isNthBitSet (int n);
 
+    ColorRGB getColor();
+    uint8_t isNthBitSet(int n);
 };
 
 #endif

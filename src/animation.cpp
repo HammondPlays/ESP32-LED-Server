@@ -18,9 +18,6 @@
         
         switch (Config::animationType)
         {
-        case FADING:
-            fading();
-            return;
         case BOOMERANG:
             boomerang();
             return;
@@ -42,54 +39,72 @@
                 b = isNthBitSet(2);
         this->color = ((this->color + 1) ) % 8;
        
-        return ColorRGB(r,g,b);
-    }
-
-    void Animation::fading(){
-        for (int i = 0; i < this->ledCount; i++)
-        {
-            ColorRGB currentColor = getColor();
-            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b); 
-            
-            delay(this->delayTime);
-        }
-        FastLED.show();
+        return ColorRGB(r * Config::brightness,g * Config::brightness,b);
     }
 
     void Animation::boomerang(){
-        ColorRGB currentColor = getColor();
-        for (int i = 0; i < this->ledCount; i++)
+        leds[this->boomerangLedIndex].setRGB(this->boomerangColor.r, this->boomerangColor.g, this->boomerangColor.b);
+        FastLED.show();
+        delay(this->delayTime);
+
+        this->boomerangLedIndex += this->boomerangDirection;
+
+        if (this->boomerangLedIndex <= 0 || this->boomerangLedIndex >= this->ledCount)
         {
-            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
-            FastLED.show();
-            delay(this->delayTime);
+            this->boomerangDirection *= -1;
+            this->boomerangColor = getColor();
         }
-        currentColor = getColor(); 
-        for (int i = this->ledCount-1; i >= 0; i--)
-        {
-            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
-            FastLED.show();
-            delay(this->delayTime);
-        }
+        
     }
 
-    //TODO: rainbow color animation
     void Animation::rainbow(){
-        for (int i = 0; i < this->ledCount; i++)
+        if (this->rainbowColorIndex >= 256)
         {
-            ColorRGB currentColor = getColor();
-            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
-            FastLED.show();
-            delay(this->delayTime);
+            this->rainbowColorIndex = 0;
         }
+        
+        for(uint16_t i=0; i < this->ledCount; i++) {
+        ColorRGB color = Wheel(((i * 256 / this->ledCount) + this->rainbowColorIndex) & 255);
+        leds[this->ledCount - 1 - i].setRGB(color.r, color.g, color.b);
+        }
+
+        FastLED.show();
+        delay(this->delayTime);
+        
+        this->rainbowColorIndex++;
     }
 
     void Animation::ledSwitchOff(){
         for (int i = 0; i < this->ledCount; i++)
         {
             leds[i].setRGB(0,0,0);
-            FastLED.show();
         }
+        FastLED.show();
     }
 
+    ColorRGB Animation::Wheel(byte wheelPosition) {
+        uint8_t r = 0,
+                g = 0, 
+                b = 0;
+        
+        if(wheelPosition < 85) {
+        r = wheelPosition * 3;
+        g = 255 - wheelPosition * 3;
+        b = 0;
+        }
+        else if(wheelPosition < 170) {
+        wheelPosition -= 85;
+        r = 255 - wheelPosition * 3;
+        g = 0;
+        b = wheelPosition * 3;
+        }
+        else {
+        wheelPosition -= 170;
+        r = 0;
+        g = wheelPosition * 3;
+        b = 255 - wheelPosition * 3;
+        }
+
+        return ColorRGB(r * Config::brightness, g * Config::brightness, b * Config::brightness);
+    }
     

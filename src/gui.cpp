@@ -35,18 +35,17 @@ String Gui::index()
     ptr += "<body>\n";
     ptr += "<a class=\"home-button\" href=\"/\"></a>\n";
     ptr += "<h1>Home</h1>\n";
-    ptr += "<h3>Using Access Point(AP) Mode</h3>\n";
+    ptr += "<h3>LED-Steuerung</h3>\n";
 
     ptr += "<p>LED Status: OFF</p>";
 
-    ptr += "<a class=\"button button-on\" href=\"/led2on\">SWITCH</a>\n";
-    ptr += "<input id=\"brightness_input\" type=\"range\" value=\"50\" step=\"1\" min=\"0\" max=\"100\" onchange=\"updateBrightness(this.value)\">\n";
+    ptr += "<a class=\"button button-on\" href=\"/led-state\">SWITCH</a>\n";
+    ptr += "<input id=\"brightness_input\" type=\"range\" value=\"25\" step=\"1\" min=\"0\" max=\"100\" onchange=\"updateBrightness(this.value)\">\n";
 
     ptr += "<h3>Animations</h3>\n";
     ptr += "<div class=\"button-frame\">\n";
-    ptr += "<a class=\"button button-on\" href=\"/led2on\">Fade</a>\n";
-    ptr += "<a class=\"button button-on\" href=\"/led2on\">Boomerang</a>\n";
-    ptr += "<a class=\"button button-on\" href=\"/led2on\">Rainbow</a>\n";
+    ptr += "<form action=\"/animation/0\" method=\"post\"><input type=\"submit\" value=\"Boomerang\"/></form>\n";
+    ptr += "<form action=\"/animation/1\" method=\"post\"><input type=\"submit\" value=\"Rainbow\"/></form>\n";
     ptr += "</div>\n";
     // ptr += "<p>Brightness: <output id=\"brightness\"></output></p>\n"; TODO: Not Working
 

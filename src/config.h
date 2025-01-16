@@ -10,8 +10,8 @@
 class Config {
   public:
     inline static bool ledState = true;
-    inline static double brightness = 0.5;
-    inline static AnimationType animationType = AnimationType::FADING;
+    inline static double brightness = 0.25;
+    inline static AnimationType animationType = AnimationType::RAINBOW;
 
     static void switchLedState();
     static void save();

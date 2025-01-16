@@ -10,6 +10,8 @@ Animation animation = Animation(LED_COUNT, DELAY);
 void setup() {
   Serial.begin(9600);
   // Serial.begin(115200);
+  SPIFFS.begin();
+  Config::load();
 
   WifiService::setup();
   Serial.println(WiFi.localIP());

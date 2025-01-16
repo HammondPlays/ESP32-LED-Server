@@ -2,7 +2,6 @@
 #define ANIMATIONTYPE_H
 
 enum AnimationType {
-    FADING,
     BOOMERANG,
     RAINBOW
 };
