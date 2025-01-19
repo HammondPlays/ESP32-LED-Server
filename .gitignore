@@ -1,3 +1,9 @@
+# Build files
+.pio/build/
+
+# VSCode
+.vscode/
+
 # Prerequisites
 *.d
 
