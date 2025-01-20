@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LED</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>LED Controll</h1>
+    </header>
+    <main>
+      <p>This is a simple frontend application running on an ESP32.</p>
+      <button id="toggleLed">Light On/Off</button>
+      <div>
+        <h2>Select Animation</h2>
+        <div id="modeContainer">
+          <!-- Radio buttons will be dynamically added here -->
+        </div>
+      </div>
+      <div id="modeOptions" style="display: none">
+        <h3>Mode Options</h3>
+        <div id="mode1Options" style="display: none">
+          <p>Options for Mode 1</p>
+          <!-- Add specific options for Mode 1 here -->
+        </div>
+        <div id="mode2Options" style="display: none">
+          <p>Options for Mode 2</p>
+          <!-- Add specific options for Mode 2 here -->
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2025 LED Controll</p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>

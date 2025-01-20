@@ -1,3 +1,6 @@
+#ifndef GUI_H
+#define GUI_H
+
 #include <Arduino.h>
 #include <config.h>
 
@@ -9,3 +12,5 @@ public:
     static String index();
     static String functions();
 };
+
+#endif // GUI_H

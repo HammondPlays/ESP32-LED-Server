@@ -1,5 +1,5 @@
-#ifndef WORDCLOCK_SERVER_H
-#define WORDCLOCK_SERVER_H
+#ifndef HTTPSERVER_H
+#define HTTPSERVER_H
 
 #include <Arduino.h>
 #include <WebServer.h>

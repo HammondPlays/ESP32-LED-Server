@@ -1,7 +1,7 @@
-#include <Arduino.h>
-
 #ifndef COLORRGB_H
 #define COLORRGB_H
+
+#include <Arduino.h>
 
 class ColorRGB {
     public:

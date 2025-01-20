@@ -7,6 +7,8 @@ void HttpServer::setup()
     HttpServer::web.on("/", Controller::index);
     HttpServer::web.on("/led-state", Controller::ledSwitchOnOff);
 
+    HttpServer::web.on("/animations", HTTP_GET, Controller::getAnimationTypes);
+
     HttpServer::web.on(UriRegex("^\\/brightness\\/([0-9]+)$"), HTTP_PUT, []() {
         String brightness = web.pathArg(0);
         Serial.println("Brightness " + brightness);
