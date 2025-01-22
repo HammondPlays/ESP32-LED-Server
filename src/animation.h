@@ -34,7 +34,7 @@ private:
     // Boomerang
     int boomerangLedIndex;
     int8_t boomerangDirection = 1; //Positive forward, Negative backwards
-    ColorRGB boomerangColor = ColorRGB(0,0,0);
+    ColorRGB boomerangColor = ColorRGB(0,0,0,1.0);
     
     // Fading
     int staticTime;

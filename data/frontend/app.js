@@ -2,16 +2,27 @@
 // It handles user interactions, manipulates the DOM, and implements the application's logic.
 
 document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("toggleLed");
+  const toggleLedButton = document.getElementById("toggleLed");
+  const brightnessInput = document.getElementById("brightnessInput");
   const output = document.getElementById("output");
 
-  button.addEventListener("click", () => {
-    output.textContent = "Button clicked!";
-  });
+  const host = window.location.origin;
+  const currentBrightness = fetch(host + "/brightness", {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => brightnessInput.value = data.brightness);
 });
+//toggleLedButton.addEventListener("click", () => {
+//  output.textContent = "Toggle LED Button clicked!";
+//});
+//brightnessInput.addEventListener("change", () => {
+//  output.textContent = "Brightness changed!";
+//});
 
 document.getElementById("toggleLed").addEventListener("click", function () {
-  fetch("http://your-esp32-ip-address/api", {
+  const host = window.location.origin;
+  fetch(host + "/led-state", {
     method: "GET",
   })
     .then((response) => response.json())
@@ -21,6 +32,18 @@ document.getElementById("toggleLed").addEventListener("click", function () {
     .catch((error) => {
       console.error("Error:", error);
     });
+});
+
+document.getElementById("brightnessInput").addEventListener("change", function () {
+  const brightnessValue = this.value;
+  const host = window.location.origin;
+  fetch(host + "/brightness/" + brightnessValue, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ brightness: brightnessValue })
+  })
 });
 
 function fetchModes() {

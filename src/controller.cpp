@@ -7,9 +7,16 @@ void Controller::ledSwitchOnOff()
     HttpServer::web.send(200, "text/html", Gui::index());
 }
 
+void Controller::getBrightness()
+{
+    Serial.println(Config::brightness);
+    String json = "{ \"brightness\": \"" + String(Config::brightness) + "\"}";
+    HttpServer::web.send(200, "application/json", json);
+}
+
 void Controller::setBrightness(int brightness)
 {
-    Config::brightness = brightness / 100.0;
+    Config::brightness = brightness;
     Config::save();
     HttpServer::web.send(200, "text/html", Gui::index());
 }

@@ -7,16 +7,16 @@
 #include <animationType.h>
 #include <animation.h>
 
+class Config
+{
+public:
+  inline static bool ledState = true;
+  inline static int brightness = 25;
+  inline static AnimationType animationType = AnimationType::RAINBOW;
 
-class Config {
-  public:
-    inline static bool ledState = true;
-    inline static double brightness = 0.25;
-    inline static AnimationType animationType = AnimationType::RAINBOW;
-
-    static void switchLedState();
-    static void save();
-    static void load();
+  static void switchLedState();
+  static void save();
+  static void load();
 };
 
 #endif
