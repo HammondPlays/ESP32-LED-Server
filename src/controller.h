@@ -7,6 +7,8 @@
 class Controller {
   public:    
     static void index();
+    static void styles();
+    static void app();
     static void ledSwitchOnOff();
     static void setBrightness(int brightness);
     static void getAnimationTypes();

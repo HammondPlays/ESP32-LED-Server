@@ -2,15 +2,15 @@
 #define GUI_H
 
 #include <Arduino.h>
+#include <SPIFFS.h>
 #include <config.h>
 
 class Gui
 {
 public:
-    static String head(String title);
-    static String style();
     static String index();
-    static String functions();
+    static String styles();
+    static String app();
 };
 
 #endif // GUI_H

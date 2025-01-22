@@ -5,6 +5,8 @@
 void HttpServer::setup()
 {
     HttpServer::web.on("/", Controller::index);
+    HttpServer::web.on("/styles.css", Controller::styles);
+    HttpServer::web.on("/app.js", Controller::app);
     HttpServer::web.on("/led-state", Controller::ledSwitchOnOff);
 
     HttpServer::web.on("/animations", HTTP_GET, Controller::getAnimationTypes);

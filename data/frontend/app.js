@@ -2,7 +2,7 @@
 // It handles user interactions, manipulates the DOM, and implements the application's logic.
 
 document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("myButton");
+  const button = document.getElementById("toggleLed");
   const output = document.getElementById("output");
 
   button.addEventListener("click", () => {
@@ -30,19 +30,23 @@ function fetchModes() {
   })
     .then((response) => response.json())
     .then((data) => {
-      const modeContainer = document.getElementById("modeContainer");
-      data.modes.forEach((mode) => {
+      console.log(data);
+      const modeContainer = document.getElementById("animationModeContainer");
+      Object.values(data).forEach((mode) => {
+        console.log(mode);
         const label = document.createElement("label");
         const input = document.createElement("input");
         input.type = "radio";
         input.name = "mode";
-        input.value = mode.value;
-        input.id = mode.value;
+        input.value = mode;
+        input.id = mode;
         label.appendChild(input);
-        label.appendChild(document.createTextNode(` ${mode.label}`));
+        label.appendChild(document.createTextNode(` ${mode}`));
         modeContainer.appendChild(label);
       });
 
+      // Additional parameters depending on the animation
+      // TODO: to be implemented - boiler code 
       document.querySelectorAll('input[name="mode"]').forEach((elem) => {
         elem.addEventListener("change", function (event) {
           const mode = event.target.value;
