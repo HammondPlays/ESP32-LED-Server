@@ -45,6 +45,22 @@ document.getElementById("toggleLed").addEventListener("click", function () {
     });
 });
 
+
+document.getElementById("animationSubmit").addEventListener("click", function () {
+  const host = window.location.origin;
+  const mode = document.querySelector('input[name="mode"]:checked').value;
+  fetch(host + "/animations/" + mode, {
+    method: "PUT",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+});
+
 document
   .getElementById("brightnessInput")
   .addEventListener("change", function () {
