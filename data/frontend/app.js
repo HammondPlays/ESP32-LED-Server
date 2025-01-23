@@ -4,14 +4,25 @@
 document.addEventListener("DOMContentLoaded", () => {
   const toggleLedButton = document.getElementById("toggleLed");
   const brightnessInput = document.getElementById("brightnessInput");
-  const output = document.getElementById("output");
+  const animationRadioButtons = document.getElementsByName(
+    "animationModeContainer"
+  );
 
   const host = window.location.origin;
-  const currentBrightness = fetch(host + "/brightness", {
+  fetch(host + "/brightness", {
     method: "GET",
   })
     .then((response) => response.json())
-    .then((data) => brightnessInput.value = data.brightness);
+    .then((data) => (brightnessInput.value = data.brightness));
+
+  fetch(host + "/animations", {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Current animation " + data);
+      animationRadioButtons.value = data.animation;
+    });
 });
 //toggleLedButton.addEventListener("click", () => {
 //  output.textContent = "Toggle LED Button clicked!";
@@ -34,21 +45,23 @@ document.getElementById("toggleLed").addEventListener("click", function () {
     });
 });
 
-document.getElementById("brightnessInput").addEventListener("change", function () {
-  const brightnessValue = this.value;
-  const host = window.location.origin;
-  fetch(host + "/brightness/" + brightnessValue, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ brightness: brightnessValue })
-  })
-});
+document
+  .getElementById("brightnessInput")
+  .addEventListener("change", function () {
+    const brightnessValue = this.value;
+    const host = window.location.origin;
+    fetch(host + "/brightness/" + brightnessValue, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ brightness: brightnessValue }),
+    });
+  });
 
 function fetchModes() {
   const host = window.location.origin;
-  fetch(host + "/animations", {
+  fetch(host + "/animation-types", {
     method: "GET",
   })
     .then((response) => response.json())
@@ -69,7 +82,7 @@ function fetchModes() {
       });
 
       // Additional parameters depending on the animation
-      // TODO: to be implemented - boiler code 
+      // TODO: to be implemented - boiler code
       document.querySelectorAll('input[name="mode"]').forEach((elem) => {
         elem.addEventListener("change", function (event) {
           const mode = event.target.value;

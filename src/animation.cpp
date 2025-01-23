@@ -14,6 +14,12 @@ void Animation::setup()
 
 void Animation::loop()
 {
+    if (Config::resetCounter)
+    {
+        resetCounter();
+        Config::resetCounter = false;
+    }
+    
     if (!Config::ledState)
     {
         ledSwitchOff();
@@ -88,6 +94,13 @@ void Animation::ledSwitchOff()
         leds[i].setRGB(0, 0, 0);
     }
     FastLED.show();
+}
+
+void Animation::resetCounter()
+{
+    this->boomerangDirection = 1;
+    this->boomerangLedIndex = 0;
+    this->rainbowColorIndex = 0;
 }
 
 ColorRGB Animation::Wheel(byte wheelPosition)

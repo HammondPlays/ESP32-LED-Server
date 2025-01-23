@@ -18,6 +18,7 @@ public:
     void setup();
     void loop();
     void ledSwitchOff();
+    void resetCounter();
     void boomerang();
     void rainbow();
     byte color;

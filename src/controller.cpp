@@ -3,6 +3,7 @@
 void Controller::ledSwitchOnOff()
 {
     Config::switchLedState();
+    Config::resetCounter = true;
     Config::save();
     HttpServer::web.send(200, "text/html", Gui::index());
 }
@@ -21,6 +22,12 @@ void Controller::setBrightness(int brightness)
     HttpServer::web.send(200, "text/html", Gui::index());
 }
 
+void Controller::getCurrentAnimation()
+{
+    String json = "{ \"animation\": \"" + String(static_cast<int>(Config::animationType)) + "\"}";
+    HttpServer::web.send(200, "application/json", json);
+}
+
 void Controller::getAnimationTypes()
 {
     String json = getAnimationTypeJson();
@@ -30,6 +37,7 @@ void Controller::getAnimationTypes()
 void Controller::setAnimationType(int animationType)
 {
     Config::animationType = static_cast<AnimationType>(animationType);
+    Config::resetCounter = true;
     Config::save();
     HttpServer::web.send(200, "text/html", Gui::index());
 }

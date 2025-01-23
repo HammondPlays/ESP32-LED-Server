@@ -9,7 +9,8 @@ void HttpServer::setup()
     HttpServer::web.on("/app.js", Controller::app);
     HttpServer::web.on("/led-state", Controller::ledSwitchOnOff);
 
-    HttpServer::web.on("/animations", HTTP_GET, Controller::getAnimationTypes);
+    HttpServer::web.on("/animations", HTTP_GET, Controller::getCurrentAnimation);
+    HttpServer::web.on("/animation-types", HTTP_GET, Controller::getAnimationTypes);
 
     HttpServer::web.on("/brightness", HTTP_GET, Controller::getBrightness);
     HttpServer::web.on(UriRegex("^\\/brightness\\/([0-9]+)$"), HTTP_PUT, []() {
@@ -17,7 +18,7 @@ void HttpServer::setup()
         Serial.println("Brightness " + brightness);
         Controller::setBrightness(brightness.toInt()); });
 
-    HttpServer::web.on(UriRegex("^\\/animation\\/([0-9]+)$"), HTTP_POST, []() {
+    HttpServer::web.on(UriRegex("^\\/animations\\/([0-9]+)$"), HTTP_POST, []() {
         String animation = web.pathArg(0);
         Serial.println("Animation " + animation);
         Controller::setAnimationType(animation.toInt()); });

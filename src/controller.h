@@ -13,6 +13,7 @@ public:
   static void ledSwitchOnOff();
   static void getBrightness();
   static void setBrightness(int brightness);
+  static void getCurrentAnimation();
   static void getAnimationTypes();
   static void setAnimationType(int animationType);
   static void notFound();
