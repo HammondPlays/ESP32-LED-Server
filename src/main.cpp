@@ -23,7 +23,6 @@ void setup()
 
 void loop()
 {
-  HttpServer::loop();
   animation.loop();
   // Serial.println("Running");
 }

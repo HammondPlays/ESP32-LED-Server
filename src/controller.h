@@ -7,17 +7,16 @@
 class Controller
 {
 public:
-  static void index();
-  static void styles();
-  static void app();
-  static void ledSwitchOnOff();
-  static void getBrightness();
-  static void setBrightness(int brightness);
-  static void getCurrentAnimation();
-  static void getAnimationTypes();
-  static void setAnimationType(int animationType);
-  static void notFound();
-  static String SendHTML(uint8_t led1stat, uint8_t led2stat);
+  static void index(AsyncWebServerRequest* request);
+  static void styles(AsyncWebServerRequest* request);
+  static void app(AsyncWebServerRequest* request);
+  static void ledSwitchOnOff(AsyncWebServerRequest* request);
+  static void getBrightness(AsyncWebServerRequest* request);
+  static void setBrightness(AsyncWebServerRequest* request, int brightness);
+  static void getCurrentAnimation(AsyncWebServerRequest* request);
+  static void getAnimationTypes(AsyncWebServerRequest* request);
+  static void setAnimationType(AsyncWebServerRequest* request, int animationType);
+  static void notFound(AsyncWebServerRequest* request);
 };
 
 #endif // CONTROLLER_H

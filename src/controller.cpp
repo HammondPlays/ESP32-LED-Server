@@ -1,63 +1,63 @@
 #include "controller.h"
 
-void Controller::ledSwitchOnOff()
+void Controller::ledSwitchOnOff(AsyncWebServerRequest* request)
 {
     Config::switchLedState();
     Config::resetCounter = true;
     Config::save();
-    HttpServer::web.send(200, "text/html", Gui::index());
+    request->send(200, "text/html", Gui::index());
 }
 
-void Controller::getBrightness()
+void Controller::getBrightness(AsyncWebServerRequest* request)
 {
     Serial.println(Config::brightness);
     String json = "{ \"brightness\": \"" + String(Config::brightness) + "\"}";
-    HttpServer::web.send(200, "application/json", json);
+    request->send(200, "application/json", json);
 }
 
-void Controller::setBrightness(int brightness)
+void Controller::setBrightness(AsyncWebServerRequest* request, int brightness)
 {
     Config::brightness = brightness;
     Config::save();
-    HttpServer::web.send(200, "text/html", Gui::index());
+    request->send(200, "text/html", Gui::index());
 }
 
-void Controller::getCurrentAnimation()
+void Controller::getCurrentAnimation(AsyncWebServerRequest* request)
 {
     String json = "{ \"animation\": \"" + String(static_cast<int>(Config::animationType)) + "\"}";
-    HttpServer::web.send(200, "application/json", json);
+    request->send(200, "application/json", json);
 }
 
-void Controller::getAnimationTypes()
+void Controller::getAnimationTypes(AsyncWebServerRequest* request)
 {
     String json = getAnimationTypeJson();
-    HttpServer::web.send(200, "application/json", json);
+    request->send(200, "application/json", json);
 }
 
-void Controller::setAnimationType(int animationType)
+void Controller::setAnimationType(AsyncWebServerRequest* request, int animationType)
 {
     Config::animationType = static_cast<AnimationType>(animationType);
     Config::resetCounter = true;
     Config::save();
-    HttpServer::web.send(200, "text/html", Gui::index());
+    request->send(200, "text/html", Gui::index());
 }
 
-void Controller::index()
+void Controller::index(AsyncWebServerRequest* request)
 {
-    HttpServer::web.send(200, "text/html", Gui::index());
+    request->send(200, "text/html", Gui::index());
 }
 
-void Controller::styles()
+void Controller::styles(AsyncWebServerRequest* request)
 {
-    HttpServer::web.send(200, "text/css", Gui::styles());
+    request->send(200, "text/css", Gui::styles());
 }
 
-void Controller::app()
+void Controller::app(AsyncWebServerRequest* request)
 {
-    HttpServer::web.send(200, "text/plain", Gui::app());
+    request->send(200, "text/plain", Gui::app());
 }
 
-void Controller::notFound()
+void Controller::notFound(AsyncWebServerRequest* request)
 {
-    HttpServer::web.send(404, "text/plain", "Not found");
+    request->send(404, "text/plain", "Not found");
 }

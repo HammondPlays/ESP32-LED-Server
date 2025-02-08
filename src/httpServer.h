@@ -2,7 +2,7 @@
 #define HTTPSERVER_H
 
 #include <Arduino.h>
-#include <WebServer.h>
+#include <AsyncEventSource.h>
 #include <controller.h>
 #include <gui.h>
 #include <Animation.h>
@@ -11,10 +11,9 @@
 class HttpServer
 {
 public:
-  static WebServer web;
+  static AsyncWebServer web;
 
   static void setup();
-  static void loop();
 };
 
 #endif

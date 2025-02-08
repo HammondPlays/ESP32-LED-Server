@@ -66,7 +66,7 @@ document
   .addEventListener("change", function () {
     const brightnessValue = this.value;
     const host = window.location.origin;
-    fetch(host + "/brightness/" + brightnessValue, {
+    fetch(host + "/brightness", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
