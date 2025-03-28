@@ -2,7 +2,8 @@
 // It handles user interactions, manipulates the DOM, and implements the application's logic.
 
 document.addEventListener("DOMContentLoaded", () => {
-  const toggleLedButton = document.getElementById("toggleLed");
+  const ledOnButton = document.getElementById("ledOn");
+  const ledOffButton = document.getElementById("ledOff");
   const brightnessInput = document.getElementById("brightnessInput");
   const animationRadioButtons = document.getElementsByName(
     "animationModeContainer"
@@ -31,9 +32,23 @@ document.addEventListener("DOMContentLoaded", () => {
 //  output.textContent = "Brightness changed!";
 //});
 
-document.getElementById("toggleLed").addEventListener("click", function () {
+document.getElementById("ledOn").addEventListener("click", function () {
   const host = window.location.origin;
-  fetch(host + "/led-state", {
+  fetch(host + "/led/on", {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+});
+
+document.getElementById("ledOff").addEventListener("click", function () {
+  const host = window.location.origin;
+  fetch(host + "/led/off", {
     method: "GET",
   })
     .then((response) => response.json())

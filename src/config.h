@@ -15,7 +15,6 @@ public:
   inline static AnimationType animationType = AnimationType::RAINBOW;
   inline static bool resetCounter = false;
 
-  static void switchLedState();
   static void save();
   static void load();
 };

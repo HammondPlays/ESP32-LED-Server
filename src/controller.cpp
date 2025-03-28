@@ -1,8 +1,15 @@
 #include "controller.h"
 
-void Controller::ledSwitchOnOff(AsyncWebServerRequest* request)
+void Controller::ledSwitchOn(AsyncWebServerRequest* request)
 {
-    Config::switchLedState();
+    Config::ledState = true;
+    Config::save();
+    request->send(200, "text/html", Gui::index());
+}
+
+void Controller::ledSwitchOff(AsyncWebServerRequest* request)
+{
+    Config::ledState = false;
     Config::resetCounter = true;
     Config::save();
     request->send(200, "text/html", Gui::index());

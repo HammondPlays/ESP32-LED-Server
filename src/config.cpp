@@ -38,7 +38,3 @@ void Config::save() {
 
     file.close();
 }
-
-void Config::switchLedState() {
-    Config::ledState = !Config::ledState;
-}
