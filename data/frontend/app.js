@@ -25,12 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
       animationRadioButtons.value = data.animation;
     });
 });
-//toggleLedButton.addEventListener("click", () => {
-//  output.textContent = "Toggle LED Button clicked!";
-//});
-//brightnessInput.addEventListener("change", () => {
-//  output.textContent = "Brightness changed!";
-//});
 
 document.getElementById("ledOn").addEventListener("click", function () {
   const host = window.location.origin;
@@ -63,9 +57,19 @@ document.getElementById("ledOff").addEventListener("click", function () {
 
 document.getElementById("animationSubmit").addEventListener("click", function () {
   const host = window.location.origin;
-  const mode = document.querySelector('input[name="mode"]:checked').value;
-  fetch(host + "/animations/" + mode, {
+  const selectedRadioButton = document.querySelector('input[name="mode"]:checked');
+  if (selectedRadioButton) {
+    console.log("Selected animation mode:", selectedRadioButton.value);
+  } else {
+    console.error("No animation mode is selected.");
+  }
+  //const mode = document.querySelector('input[name="mode"]:checked').value;
+  fetch(host + "/animations", {
     method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ animation: selectedRadioButton.value }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -76,8 +80,7 @@ document.getElementById("animationSubmit").addEventListener("click", function ()
     });
 });
 
-document
-  .getElementById("brightnessInput")
+document.getElementById("brightnessInput")
   .addEventListener("change", function () {
     const brightnessValue = this.value;
     const host = window.location.origin;
@@ -90,6 +93,11 @@ document
     });
   });
 
+  document.getElementById("animationModeContainer")
+  .addEventListener("change", function () {
+    console.log("Animation mode changed!");
+  });
+
 function fetchModes() {
   const host = window.location.origin;
   fetch(host + "/animation-types", {
@@ -99,8 +107,7 @@ function fetchModes() {
     .then((data) => {
       console.log(data);
       const modeContainer = document.getElementById("animationModeContainer");
-      Object.values(data).forEach((mode) => {
-        console.log(mode);
+      Object.keys(data).forEach((mode) => {
         const label = document.createElement("label");
         const input = document.createElement("input");
         input.type = "radio";
@@ -108,29 +115,22 @@ function fetchModes() {
         input.value = mode;
         input.id = mode;
         label.appendChild(input);
-        label.appendChild(document.createTextNode(` ${mode}`));
+        label.appendChild(document.createTextNode(` ${data[mode]}`));
         modeContainer.appendChild(label);
-      });
-
-      // Additional parameters depending on the animation
-      // TODO: to be implemented - boiler code
-      document.querySelectorAll('input[name="mode"]').forEach((elem) => {
-        elem.addEventListener("change", function (event) {
-          const mode = event.target.value;
-          document.getElementById("modeOptions").style.display = "block";
-          if (mode === "mode1") {
-            document.getElementById("mode1Options").style.display = "block";
-            document.getElementById("mode2Options").style.display = "none";
-          } else if (mode === "mode2") {
-            document.getElementById("mode1Options").style.display = "none";
-            document.getElementById("mode2Options").style.display = "block";
-          }
-        });
       });
     })
     .catch((error) => {
       console.error("Error:", error);
     });
+
+    fetch(host + "/animations", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const selectedRadioButton = document.getElementById(data.animation);
+        selectedRadioButton.checked = true;
+      });
 }
 
 // Fetch modes on page load

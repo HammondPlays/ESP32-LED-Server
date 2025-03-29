@@ -32,17 +32,36 @@ void handleBrightnessPUT(AsyncWebServerRequest* request, uint8_t* data, size_t l
     }
 }
 
+void handleAnimtionPUT(AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total){
+    Serial.printf("Received body for /animations: %u bytes\n", total);
+
+    // Allocate a JSON document (adjust size as needed)
+    StaticJsonDocument<200> jsonDoc;
+
+    // Parse the JSON body
+    DeserializationError error = deserializeJson(jsonDoc, data, len);
+    if (error) {
+        Serial.println("Failed to parse JSON");
+        request->send(400, "application/json", "{\"error\":\"Invalid JSON\"}");
+        return;
+    }
+
+    // Extract the "brightness" value from the JSON
+    if (jsonDoc.containsKey("animation")) {
+        AnimationType animation = jsonDoc["animation"];
+        Serial.printf("Animation: %d\n", animation);
+
+        // Call your controller to set the brightness
+        Controller::setAnimationType(request, animation);
+        request->send(200, "application/json", "{\"status\":\"success\"}");
+    } else {
+        Serial.println("Animation key missing in JSON");
+        request->send(400, "application/json", "{\"error\":\"Missing 'animation' key\"}");
+    }
+}
+
 void HttpServer::setup()
 {
-    HttpServer::web.onRequestBody([](AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) {
-        if (request->url() == "/brightness" && request->method() == HTTP_PUT) {
-            handleBrightnessPUT(request, data, len, index, total);
-        } else {
-            Serial.printf("Received body for %s: %u bytes\n", request->url().c_str(), total);
-        }
-    });
-
-
     HttpServer::web.on("/", [](AsyncWebServerRequest* request) {
         Controller::index(request); });
     HttpServer::web.on("/styles.css", [](AsyncWebServerRequest* request) {
@@ -61,49 +80,13 @@ void HttpServer::setup()
 
     HttpServer::web.on("/brightness", HTTP_GET, [](AsyncWebServerRequest* request) {
         Controller::getBrightness(request); });
-    /*HttpServer::web.on("/brightness", HTTP_PUT, [](AsyncWebServerRequest* request) {
-        Serial.println("PUT /brightness");
 
-        HttpServer::web.onRequestBody([](AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) {
-            Serial.printf("Received body: %u bytes\n", total);
+    HttpServer::web.on("/animations", HTTP_PUT, [](AsyncWebServerRequest* request){}, NULL, [](AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) {
+        handleAnimtionPUT(request, data, len, index, total);
+    });
 
-            // Allocate a JSON document (adjust size as needed)
-            StaticJsonDocument<200> jsonDoc;
-
-            // Parse the JSON body
-            DeserializationError error = deserializeJson(jsonDoc, data, len);
-            if (error) {
-                Serial.println("Failed to parse JSON");
-                request->send(400, "application/json", "{\"error\":\"Invalid JSON\"}");
-                return;
-            }
-
-            // Extract the "brightness" value from the JSON
-            if (jsonDoc.containsKey("brightness")) {
-                int brightness = jsonDoc["brightness"];
-                Serial.printf("Brightness: %d\n", brightness);
-
-                // Call your controller to set the brightness
-                Controller::setBrightness(request, brightness);
-
-                // Send a success response
-                request->send(200, "application/json", "{\"status\":\"success\"}");
-            } else {
-                Serial.println("Brightness key missing in JSON");
-                request->send(400, "application/json", "{\"error\":\"Missing 'brightness' key\"}");
-            }
-        });
-    });*/
-
-    HttpServer::web.on("/animations", HTTP_POST, [](AsyncWebServerRequest* request) {
-        if (request->hasParam("animations", true)) {
-            const AsyncWebParameter* p = request->getParam("animations", true);
-            String brightness = p->value();
-            Serial.println("Animations " + brightness);
-            Controller::setAnimationType(request, brightness.toInt());
-        } else {
-            request->send(400, "text/plain", "Brightness value missing");
-        } 
+    HttpServer::web.on("/brightness", HTTP_PUT, [](AsyncWebServerRequest* request){}, NULL, [](AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) {
+        handleBrightnessPUT(request, data, len, index, total);
     });
 
     HttpServer::web.onNotFound([](AsyncWebServerRequest* request) {
