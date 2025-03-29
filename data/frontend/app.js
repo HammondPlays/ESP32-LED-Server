@@ -99,8 +99,9 @@ function fetchModes() {
     .then((data) => {
       console.log(data);
       const modeContainer = document.getElementById("animationModeContainer");
-      Object.values(data).forEach((mode) => {
-        console.log(mode);
+      Object.keys(data).forEach((mode) => {
+        console.log("Key:", mode);
+        console.log("Value:", data[mode]);
         const label = document.createElement("label");
         const input = document.createElement("input");
         input.type = "radio";
@@ -108,13 +109,13 @@ function fetchModes() {
         input.value = mode;
         input.id = mode;
         label.appendChild(input);
-        label.appendChild(document.createTextNode(` ${mode}`));
+        label.appendChild(document.createTextNode(` ${data[mode]}`));
         modeContainer.appendChild(label);
       });
 
       // Additional parameters depending on the animation
       // TODO: to be implemented - boiler code
-      document.querySelectorAll('input[name="mode"]').forEach((elem) => {
+      /*document.querySelectorAll('input[name="mode"]').forEach((elem) => {
         elem.addEventListener("change", function (event) {
           const mode = event.target.value;
           document.getElementById("modeOptions").style.display = "block";
@@ -126,11 +127,22 @@ function fetchModes() {
             document.getElementById("mode2Options").style.display = "block";
           }
         });
-      });
+      });*/
     })
     .catch((error) => {
       console.error("Error:", error);
     });
+
+    fetch(host + "/animations", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log("The current animation:", data.animation)
+        const selectedRadioButton = document.getElementById(data.animation);
+        selectedRadioButton.checked = true;
+      });
 }
 
 // Fetch modes on page load
