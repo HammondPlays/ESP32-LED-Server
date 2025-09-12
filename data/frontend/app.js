@@ -115,8 +115,7 @@ function fetchModes() {
         input.value = mode;
         input.id = mode;
         label.appendChild(input);
-        label.appendChild(document.createTextNode(` ${data[mode]}`));
-        label.appendChild(document.createTextNode(` ${data[mode]}`));
+        label.appendChild(document.createTextNode(` ${data[mode].name}`));
         modeContainer.appendChild(label);
       });
     })

@@ -4,13 +4,20 @@
 #include <string>
 #include <map>
 #include "ArduinoJson.h"
+#include <vector>
 
 enum AnimationType {
     BOOMERANG,
-    RAINBOW
+    RAINBOW,
+    STATIC
 };
 
-std::map<AnimationType, std::string> getAnimationTypeMap();
+struct AnimationDetails {
+    std::string name;
+    std::vector<std::string> animationParameters; // List of parameters
+};
+
+std::map<AnimationType, AnimationDetails> getAnimationTypeMap();
 
 String getAnimationTypeJson();
 

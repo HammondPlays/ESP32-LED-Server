@@ -43,6 +43,8 @@ void Controller::getAnimationTypes(AsyncWebServerRequest* request)
 
 void Controller::setAnimationType(AsyncWebServerRequest* request, int animationType)
 {
+    Serial.printf("Previous animation type: %d\n", Config::animationType);
+    Serial.printf("Setting animation type to %d\n", animationType);
     Config::animationType = static_cast<AnimationType>(animationType);
     Config::resetCounter = true;
     Config::save();
