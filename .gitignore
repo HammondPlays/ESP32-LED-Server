@@ -1,4 +1,5 @@
 # IDE files
+*.code-workspace
 .vscode/
 
 # Build files
