@@ -13,6 +13,7 @@ header {
 
 h1 {
     margin: 0;
+    margin-bottom: 10px;
 }
 
 .container {
@@ -27,8 +28,34 @@ button {
     border: none;
     padding: 10px 15px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 button:hover {
     background: #e8491d;
+}
+
+#animationParameters {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+}
+
+/* Style the controls container */
+#controls {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  gap: 10px; /* Add spacing between buttons and slider */
+}
+
+/* Style the button container */
+#buttonContainer {
+  display: flex;
+  gap: 10px; /* Add spacing between the buttons */
+}
+
+/* Style the slider */
+#brightnessInput {
+  width: 80%; /* Adjust the width of the slider */
 }
