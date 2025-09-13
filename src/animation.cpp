@@ -28,12 +28,15 @@ void Animation::loop()
 
     switch (Config::animationType)
     {
-    case BOOMERANG:
-        boomerang();
-        return;
-    case RAINBOW:
-        rainbow();
-        return;
+        case BOOMERANG:
+            boomerang();
+            return;
+        case RAINBOW:
+            rainbow();
+            return;
+        case STATIC:
+            staticColor();
+            return;
     }
 }
 
@@ -53,11 +56,21 @@ ColorRGB Animation::getColor()
     return ColorRGB(r, g, b, Config::brightness);
 }
 
+void Animation::staticColor() 
+{
+    ColorRGB color = ColorRGB(Config::color.r, Config::color.g, Config::color.b, Config::brightness);
+    for (int i = 0; i < this->ledCount; i++)
+    {
+        leds[i].setRGB(color.r, color.g, color.b);
+    }
+    FastLED.show();
+}
+
 void Animation::boomerang()
 {
     leds[this->boomerangLedIndex].setRGB(this->boomerangColor.r, this->boomerangColor.g, this->boomerangColor.b);
     FastLED.show();
-    delay(this->delayTime);
+    delay(this->delayTime / Config::speed);
 
     this->boomerangLedIndex += this->boomerangDirection;
 

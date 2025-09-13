@@ -31,7 +31,19 @@ void Controller::setBrightness(AsyncWebServerRequest* request, int brightness)
 
 void Controller::getCurrentAnimation(AsyncWebServerRequest* request)
 {
-    String json = "{ \"animation\": \"" + String(static_cast<int>(Config::animationType)) + "\"}";
+    AnimationDetails animationDetails = getAnimationTypeMap()[Config::animationType];
+    DynamicJsonDocument doc(1024);
+
+    JsonObject animationObject = doc.createNestedObject(String(static_cast<int>(Config::animationType)));
+    animationObject["name"] = animationDetails.name;
+
+    JsonArray parameters = animationObject.createNestedArray("parameters");
+    for (const auto& param : animationDetails.animationParameters) {
+        parameters.add(param);
+    }
+    String json;
+    serializeJson(doc, json);
+
     request->send(200, "application/json", json);
 }
 

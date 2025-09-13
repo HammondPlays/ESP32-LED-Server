@@ -63,13 +63,16 @@ document.getElementById("animationSubmit").addEventListener("click", function ()
   } else {
     console.error("No animation mode is selected.");
   }
+
+  const color = document.getElementById("colorPicker").value;
+  const speed = document.getElementById("speedSlider").value;
   //const mode = document.querySelector('input[name="mode"]:checked').value;
   fetch(host + "/animations", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ animation: selectedRadioButton.value }),
+    body: JSON.stringify({ animation: selectedRadioButton.value, color: color, speed: speed }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -93,9 +96,36 @@ document.getElementById("brightnessInput")
     });
   });
 
+  document.getElementById("speedSlider").addEventListener("input", function () {
+    const speedValue = this.value;
+    document.getElementById("speedValue").textContent = speedValue;
+  });
+
   document.getElementById("animationModeContainer")
   .addEventListener("change", function () {
-    console.log("Animation mode changed!");
+    const selectedMode = document.querySelector('input[name="mode"]:checked').value;
+    console.log("Animation mode changed!" + selectedMode);
+
+    const host = window.location.origin;
+
+    fetch(host + "/animation-types", {
+      method: "GET",
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      currentAnimationParameters = data[selectedMode].parameters;
+
+      Array.from(document.getElementById("animationParameters").children).forEach((param) => {
+        if (currentAnimationParameters.includes(param.id)) {
+          param.style.display = "block";
+        } else {
+          param.style.display = "none";
+        }
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
   });
 
 function fetchModes() {
@@ -128,8 +158,14 @@ function fetchModes() {
     })
       .then((response) => response.json())
       .then((data) => {
-        const selectedRadioButton = document.getElementById(data.animation);
+        const animationId = Object.keys(data)[0];
+        const selectedRadioButton = document.getElementById(animationId);
         selectedRadioButton.checked = true;
+
+        const animationParameters = data[animationId].parameters;
+        animationParameters.forEach((param) => {
+          document.getElementById(param).style.display = "block";
+        });
       });
 }
 

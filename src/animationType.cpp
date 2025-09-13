@@ -3,7 +3,8 @@
 std::map<AnimationType, AnimationDetails> getAnimationTypeMap() {
     return {
         {BOOMERANG, {"BOOMERANG", {"SPEED"}}},
-        {RAINBOW, {"RAINBOW", {}}}
+        {RAINBOW, {"RAINBOW", {}}},
+        {STATIC, {"STATIC", {"COLOR"}}}
     };
 }
 

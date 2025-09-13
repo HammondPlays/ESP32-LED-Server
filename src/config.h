@@ -13,6 +13,8 @@ public:
   inline static bool ledState = true;
   inline static int brightness = 25;
   inline static AnimationType animationType = AnimationType::RAINBOW;
+  inline static float speed = 1.0;
+  inline static ColorRGB color = ColorRGB(255, 0, 0, 100);
   inline static bool resetCounter = false;
 
   static void save();

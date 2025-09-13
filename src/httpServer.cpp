@@ -51,6 +51,15 @@ void handleAnimtionPUT(AsyncWebServerRequest* request, uint8_t* data, size_t len
         AnimationType animation = jsonDoc["animation"];
         Serial.printf("Animation: %d\n", animation);
 
+        float speed = jsonDoc["speed"];
+        ColorRGB color = ColorRGB::hexToRGB(jsonDoc["color"] | "#ff0000");
+
+        Serial.printf("Color: R=%d, G=%d, B=%d\n", color.r, color.g, color.b);
+        Serial.printf("Speed: %.2f\n", speed);
+
+        Config::speed = speed;
+        Config::color = color;
+
         // Call your controller to set the brightness
         Controller::setAnimationType(request, animation);
         request->send(200, "application/json", "{\"status\":\"success\"}");

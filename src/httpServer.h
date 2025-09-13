@@ -7,6 +7,7 @@
 #include <gui.h>
 #include <Animation.h>
 #include <config.h>
+#include "colorRGB.h"
 
 class HttpServer
 {

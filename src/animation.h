@@ -21,6 +21,7 @@ public:
     void resetCounter();
     void boomerang();
     void rainbow();
+    void staticColor();
     byte color;
 
 private:
