@@ -4,6 +4,7 @@
 
 # Build files
 .pio/build/
+.pio/libdeps/
 
 # Prerequisites
 *.d
