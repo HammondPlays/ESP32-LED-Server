@@ -33,16 +33,8 @@ private:
     // Rainbow
     int rainbowColorIndex;
     ColorRGB Wheel(byte wheelPosition);
-
-    // Boomerang
-    int boomerangLedIndex;
-    int8_t boomerangDirection = 1; //Positive forward, Negative backwards
-    ColorRGB boomerangColor = ColorRGB(0,0,0,1.0);
-    
-    // Fading
-    int staticTime;
+  
     Hexagon hexagons[];
-
 
     ColorRGB getColor();
     uint8_t isNthBitSet(int n);

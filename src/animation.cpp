@@ -160,20 +160,6 @@ void Animation::boomerang()
         FastLED.show();
         delay(this->delayTime / Config::speed);
     }
-    
-    /*
-    leds[this->boomerangLedIndex].setRGB(this->boomerangColor.r, this->boomerangColor.g, this->boomerangColor.b);
-    FastLED.show();
-    delay(this->delayTime / Config::speed);
-
-    this->boomerangLedIndex += this->boomerangDirection;
-
-    if (this->boomerangLedIndex <= 0 || this->boomerangLedIndex >= this->ledCount)
-    {
-        this->boomerangDirection *= -1;
-        this->boomerangColor = getColor();
-    }
-    */
 }
 
 void Animation::rainbow()
@@ -206,8 +192,6 @@ void Animation::ledSwitchOff()
 
 void Animation::resetCounter()
 {
-    this->boomerangDirection = 1;
-    this->boomerangLedIndex = 0;
     this->rainbowColorIndex = 0;
 }
 
