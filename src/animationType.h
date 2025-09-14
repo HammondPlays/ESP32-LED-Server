@@ -9,6 +9,7 @@
 enum AnimationType {
     BOOMERANG,
     RAINBOW,
+    BREATHING,
     STATIC
 };
 

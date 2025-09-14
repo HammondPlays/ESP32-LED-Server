@@ -34,6 +34,9 @@ void Animation::loop()
         case RAINBOW:
             rainbow();
             return;
+        case BREATHING:
+            breathing();
+            return;
         case STATIC:
             staticColor();
             return;
@@ -53,7 +56,60 @@ ColorRGB Animation::getColor()
             b = isNthBitSet(2);
     this->color = ((this->color + 1)) % 8;
 
-    return ColorRGB(r, g, b, Config::brightness);
+    return ColorRGB(r, g, b, 100);
+}
+
+void Animation::breathing() 
+{
+    ColorRGB color = ColorRGB(Config::color.r, Config::color.g, Config::color.b, Config::brightness);
+    int currentBrightness = 0;
+    while (currentBrightness < Config::brightness) {
+        if (Config::animationType != BREATHING)
+        {
+            return;
+        }
+        
+        ColorRGB currentColor = ColorRGB(Config::color.r, Config::color.g, Config::color.b, currentBrightness);
+        for (int i = 0; i < this->ledCount; i++)
+        {
+            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
+        }
+        FastLED.show();
+        delay(this->delayTime / Config::speed);
+
+        if (currentBrightness >= 50) 
+            currentBrightness +=4;
+        if (currentBrightness >= 15) 
+            currentBrightness +=2;
+        else
+            currentBrightness++;
+    }
+
+    currentBrightness = Config::brightness;
+    while(currentBrightness >= 0)
+    {
+        if (Config::animationType != BREATHING)
+        {
+            return;
+        }
+
+        ColorRGB currentColor = ColorRGB(Config::color.r, Config::color.g, Config::color.b, currentBrightness);
+        for (int i = 0; i < this->ledCount; i++)
+        {
+            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
+        }
+        FastLED.show();
+        delay(this->delayTime / Config::speed);
+
+        if (currentBrightness > 50) 
+            currentBrightness -=4;
+        if (currentBrightness > 15) 
+            currentBrightness -=2;
+        else
+            currentBrightness--;
+    }
+
+    delay(this->delayTime * 10);
 }
 
 void Animation::staticColor() 
@@ -68,6 +124,44 @@ void Animation::staticColor()
 
 void Animation::boomerang()
 {
+    ColorRGB color = getColor();
+    for (int boomerangPosition = 0; boomerangPosition < this->ledCount; boomerangPosition++)
+    {
+        if (Config::animationType != BOOMERANG)
+        {
+            return;
+        }
+
+        ColorRGB colorWithBrightness = ColorRGB(color.r, color.g, color.b, Config::brightness);
+
+        for (int i = 0; i < boomerangPosition; i++)
+        {   
+            leds[i].setRGB(colorWithBrightness.r, colorWithBrightness.g, colorWithBrightness.b);
+        }    
+        FastLED.show();
+        delay(this->delayTime / Config::speed);
+    }
+
+    color = getColor();
+    
+    for (int boomerangPosition = this->ledCount; boomerangPosition >= 0; boomerangPosition--)
+    {
+        if (Config::animationType != BOOMERANG)
+        {
+            return;
+        }
+
+        ColorRGB colorWithBrightness = ColorRGB(color.r, color.g, color.b, Config::brightness);
+
+        for (int i = this->ledCount; i > boomerangPosition; i--)
+        {   
+            leds[i].setRGB(colorWithBrightness.r, colorWithBrightness.g, colorWithBrightness.b);
+        }    
+        FastLED.show();
+        delay(this->delayTime / Config::speed);
+    }
+    
+    /*
     leds[this->boomerangLedIndex].setRGB(this->boomerangColor.r, this->boomerangColor.g, this->boomerangColor.b);
     FastLED.show();
     delay(this->delayTime / Config::speed);
@@ -79,6 +173,7 @@ void Animation::boomerang()
         this->boomerangDirection *= -1;
         this->boomerangColor = getColor();
     }
+    */
 }
 
 void Animation::rainbow()
