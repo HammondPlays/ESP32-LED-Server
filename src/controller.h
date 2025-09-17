@@ -12,6 +12,7 @@ public:
   static void app(AsyncWebServerRequest* request);
   static void ledSwitchOn(AsyncWebServerRequest* request);
   static void ledSwitchOff(AsyncWebServerRequest* request);
+  static void ledPower(AsyncWebServerRequest* request);
   static void getBrightness(AsyncWebServerRequest* request);
   static void setBrightness(AsyncWebServerRequest* request, int brightness);
   static void getCurrentAnimation(AsyncWebServerRequest* request);

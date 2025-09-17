@@ -2,8 +2,7 @@
 // It handles user interactions, manipulates the DOM, and implements the application's logic.
 
 document.addEventListener("DOMContentLoaded", () => {
-  const ledOnButton = document.getElementById("ledOn");
-  const ledOffButton = document.getElementById("ledOff");
+  const powerSwitch = document.getElementById("powerSwitch");
   const brightnessInput = document.getElementById("brightnessInput");
   const animationRadioButtons = document.getElementsByName(
     "animationModeContainer"
@@ -16,6 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((response) => response.json())
     .then((data) => (brightnessInput.value = data.brightness));
 
+  fetch(host + "/led", {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => (powerSwitch.checked = data.value)); 
+
   fetch(host + "/animations", {
     method: "GET",
   })
@@ -24,40 +29,26 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Current animation " + data);
       animationRadioButtons.value = data.animation;
     });
+
+  // TODO: Fetch and set the initial state of the power switch
 });
 
-document.getElementById("ledOn").addEventListener("click", function () {
+powerSwitch.addEventListener("change", () => {
+  powerSwitch.textContent = powerSwitch.checked ? "On" : "Off";
+
   const host = window.location.origin;
-  fetch(host + "/led/on", {
-    method: "GET",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  fetch(host + "/led", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ value: powerSwitch.checked }),
+  });
 });
-
-document.getElementById("ledOff").addEventListener("click", function () {
-  const host = window.location.origin;
-  fetch(host + "/led/off", {
-    method: "GET",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-});
-
 
 document.getElementById("animationSubmit").addEventListener("click", function () {
   const host = window.location.origin;
-  const selectedRadioButton = document.querySelector('input[name="mode"]:checked');
+  const selectedRadioButton = document.querySelector('input[name="animation"]:checked');
   if (selectedRadioButton) {
     console.log("Selected animation mode:", selectedRadioButton.value);
   } else {
@@ -101,9 +92,9 @@ document.getElementById("brightnessInput")
     document.getElementById("speedValue").textContent = speedValue;
   });
 
-  document.getElementById("animationModeContainer")
+  document.getElementById("animationsContainer")
   .addEventListener("change", function () {
-    const selectedMode = document.querySelector('input[name="mode"]:checked').value;
+    const selectedMode = document.querySelector('input[name="animation"]:checked').value;
     console.log("Animation mode changed!" + selectedMode);
 
     const host = window.location.origin;
@@ -136,16 +127,17 @@ function fetchModes() {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      const modeContainer = document.getElementById("animationModeContainer");
+      const modeContainer = document.getElementById("animationsContainer");
       Object.keys(data).forEach((mode) => {
         const label = document.createElement("label");
         const input = document.createElement("input");
         input.type = "radio";
-        input.name = "mode";
+        input.name = "animation";
         input.value = mode;
         input.id = mode;
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(` ${data[mode].name}`));
+        label.textContent = data[mode].name;
+        label.htmlFor = mode;
+        modeContainer.appendChild(input);
         modeContainer.appendChild(label);
       });
     })

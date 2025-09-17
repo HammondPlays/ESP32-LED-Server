@@ -15,6 +15,12 @@ void Controller::ledSwitchOff(AsyncWebServerRequest* request)
     request->send(200, "text/html", Gui::index());
 }
 
+void Controller::ledPower(AsyncWebServerRequest* request)
+{
+    String json = "{ \"value\": " + String(Config::ledState ? "true" : "false") + "}";
+    request->send(200, "application/json", json);
+}
+
 void Controller::getBrightness(AsyncWebServerRequest* request)
 {
     Serial.println(Config::brightness);

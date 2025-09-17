@@ -69,6 +69,38 @@ void handleAnimtionPUT(AsyncWebServerRequest* request, uint8_t* data, size_t len
     }
 }
 
+void handleLEDPowerPUT(AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total){
+    Serial.printf("Received body for /animations: %u bytes\n", total);
+
+        // Allocate a JSON document (adjust size as needed)
+    StaticJsonDocument<200> jsonDoc;
+
+    // Parse the JSON body
+    DeserializationError error = deserializeJson(jsonDoc, data, len);
+    if (error) {
+        Serial.println("Failed to parse JSON");
+        request->send(400, "application/json", "{\"error\":\"Invalid JSON\"}");
+        return;
+    }
+
+    // Extract the "brightness" value from the JSON
+    if (jsonDoc.containsKey("value")) {
+        boolean power = jsonDoc["value"];
+        Serial.printf("Power: %s\n", power ? "true" : "false");
+        
+        if (power) {
+            Controller::ledSwitchOn(request);
+        } else {
+            Controller::ledSwitchOff(request);
+        }
+        request->send(200, "application/json", "{\"status\":\"success\"}");        
+    } else {
+        Serial.println("LED Power value missing in JSON");
+        request->send(400, "application/json", "{\"error\":\"Missing 'animation' key\"}");
+    }
+}
+
+
 void HttpServer::setup()
 {
     HttpServer::web.on("/", [](AsyncWebServerRequest* request) {
@@ -77,11 +109,8 @@ void HttpServer::setup()
         Controller::styles(request); });
     HttpServer::web.on("/app.js", [](AsyncWebServerRequest* request) {
         Controller::app(request); });
-    HttpServer::web.on("/led/on", [](AsyncWebServerRequest* request) {
-        Controller::ledSwitchOn(request); });
-    HttpServer::web.on("/led/off", [](AsyncWebServerRequest* request) {
-        Controller::ledSwitchOff(request); });
-
+    HttpServer::web.on("/led", HTTP_GET, [](AsyncWebServerRequest* request) {
+        Controller::ledPower(request); });
     HttpServer::web.on("/animations", HTTP_GET, [](AsyncWebServerRequest* request) {
         Controller::getCurrentAnimation(request); });
     HttpServer::web.on("/animation-types", HTTP_GET, [](AsyncWebServerRequest* request) {
@@ -89,6 +118,10 @@ void HttpServer::setup()
 
     HttpServer::web.on("/brightness", HTTP_GET, [](AsyncWebServerRequest* request) {
         Controller::getBrightness(request); });
+
+    HttpServer::web.on("/led", HTTP_PUT, [](AsyncWebServerRequest* request){}, NULL, [](AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) {
+        handleLEDPowerPUT(request, data, len, index, total);
+    });
 
     HttpServer::web.on("/animations", HTTP_PUT, [](AsyncWebServerRequest* request){}, NULL, [](AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) {
         handleAnimtionPUT(request, data, len, index, total);
