@@ -19,6 +19,11 @@ String Gui::index()
     return readFile("/frontend/index.html");
 }
 
+String Gui::config()
+{
+    return readFile("/frontend/config.html");
+}
+
 String Gui::styles()
 {
     return readFile("/frontend/styles-desktop.css");

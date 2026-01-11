@@ -5,7 +5,7 @@
 
 #define DELAY 50
 
-Animation animation = Animation(LED_COUNT, DELAY);
+Animation animation = Animation(50, DELAY);
 
 void setup()
 {

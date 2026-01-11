@@ -9,7 +9,7 @@
 #include <colorRGB.h>
 
 #define LED_PIN 32
-#define LED_COUNT 100
+#define LED_COUNT 500
 
 class Animation
 {

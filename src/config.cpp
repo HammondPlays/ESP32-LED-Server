@@ -17,6 +17,7 @@ void Config::load() {
     Config::ledState = doc["ledState"] | true;
     Config::brightness = doc["brightness"] | 0.25;
     Config::animationType = doc["animationType"] | AnimationType::RAINBOW;
+    Config::ledMode = doc["ledMode"] | LedMode::STRIPE;
 
     file.close();
 }
@@ -26,6 +27,7 @@ void Config::save() {
     doc["ledState"] = Config::ledState;
     doc["brightness"] = Config::brightness;
     doc["animationType"] = static_cast<int>(Config::animationType);
+    doc["ledMode"] = static_cast<int>(Config::ledMode);
 
     File file = SPIFFS.open("/config.json", "w");
 

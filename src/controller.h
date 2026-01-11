@@ -8,6 +8,7 @@ class Controller
 {
 public:
   static void index(AsyncWebServerRequest* request);
+  static void config(AsyncWebServerRequest* request);
   static void styles(AsyncWebServerRequest* request);  
   static void stylesMobile(AsyncWebServerRequest* request);
   static void app(AsyncWebServerRequest* request);
@@ -19,6 +20,9 @@ public:
   static void getCurrentAnimation(AsyncWebServerRequest* request);
   static void getAnimationTypes(AsyncWebServerRequest* request);
   static void setAnimationType(AsyncWebServerRequest* request, int animationType);
+  static void getCurrentLedMode(AsyncWebServerRequest* request);
+  static void getLedModes(AsyncWebServerRequest* request);
+  static void setLedMode(AsyncWebServerRequest* request, int ledMode);
   static void notFound(AsyncWebServerRequest* request);
 };
 

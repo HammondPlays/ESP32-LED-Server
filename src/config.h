@@ -6,10 +6,13 @@
 #include <SPIFFS.h>
 #include <animationType.h>
 #include <animation.h>
+#include <ledMode.h>
 
 class Config
 {
 public:
+  inline static int ledCount = 50;
+  inline static LedMode ledMode = LedMode::STRIPE;
   inline static bool ledState = true;
   inline static int brightness = 25;
   inline static AnimationType animationType = AnimationType::RAINBOW;

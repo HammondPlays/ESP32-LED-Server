@@ -69,9 +69,48 @@ void Controller::setAnimationType(AsyncWebServerRequest* request, int animationT
     request->send(200, "text/html", Gui::index());
 }
 
+void Controller::getCurrentLedMode(AsyncWebServerRequest* request)
+{
+    LedModeDetails ledModeDetails = getLedModeMap()[Config::ledMode];
+    DynamicJsonDocument doc(1024);
+
+    JsonObject animationObject = doc.createNestedObject(String(static_cast<int>(Config::animationType)));
+    animationObject["name"] = ledModeDetails.name;
+
+    JsonArray parameters = animationObject.createNestedArray("parameters");
+    for (const auto& param : ledModeDetails.ledModeParameters) {
+        parameters.add(param);
+    }
+    String json;
+    serializeJson(doc, json);
+
+    request->send(200, "application/json", json);
+}
+
+void Controller::getLedModes(AsyncWebServerRequest* request)
+{
+    String json = getAnimationTypeJson();
+    request->send(200, "application/json", json);
+}
+
+void Controller::setLedMode(AsyncWebServerRequest* request, int ledMode)
+{
+    Serial.printf("Previous led mode: %d\n", Config::ledMode);
+    Serial.printf("Setting led mode to %d\n", ledMode);
+    Config::ledMode = static_cast<LedMode>(ledMode);
+    Config::resetCounter = true;
+    Config::save();
+    request->send(200, "text/html", Gui::index());
+}
+
 void Controller::index(AsyncWebServerRequest* request)
 {
     request->send(200, "text/html", Gui::index());
+}
+
+void Controller::config(AsyncWebServerRequest* request)
+{
+    request->send(200, "text/html", Gui::config());
 }
 
 void Controller::styles(AsyncWebServerRequest* request)

@@ -105,6 +105,8 @@ void HttpServer::setup()
 {
     HttpServer::web.on("/", [](AsyncWebServerRequest* request) {
         Controller::index(request); });
+    HttpServer::web.on("/config", [](AsyncWebServerRequest* request) {
+        Controller::config(request); });
     HttpServer::web.on("/styles-desktop.css", [](AsyncWebServerRequest* request) {
         Controller::styles(request); });
     HttpServer::web.on("/styles-mobile.css", [](AsyncWebServerRequest* request) {
