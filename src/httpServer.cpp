@@ -32,7 +32,7 @@ void handleBrightnessPUT(AsyncWebServerRequest* request, uint8_t* data, size_t l
     }
 }
 
-void handleAnimtionPUT(AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total){
+void handleAnimationPUT(AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total){
     Serial.printf("Received body for /animations: %u bytes\n", total);
 
     // Allocate a JSON document (adjust size as needed)
@@ -128,7 +128,7 @@ void HttpServer::setup()
     });
 
     HttpServer::web.on("/animations", HTTP_PUT, [](AsyncWebServerRequest* request){}, NULL, [](AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) {
-        handleAnimtionPUT(request, data, len, index, total);
+        handleAnimationPUT(request, data, len, index, total);
     });
 
     HttpServer::web.on("/brightness", HTTP_PUT, [](AsyncWebServerRequest* request){}, NULL, [](AsyncWebServerRequest* request, uint8_t* data, size_t len, size_t index, size_t total) {
