@@ -79,6 +79,11 @@ void Controller::styles(AsyncWebServerRequest* request)
     request->send(200, "text/css", Gui::styles());
 }
 
+void Controller::stylesMobile(AsyncWebServerRequest* request)
+{
+    request->send(200, "text/css", Gui::stylesMobile());
+}
+
 void Controller::app(AsyncWebServerRequest* request)
 {
     request->send(200, "text/plain", Gui::app());

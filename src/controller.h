@@ -8,7 +8,8 @@ class Controller
 {
 public:
   static void index(AsyncWebServerRequest* request);
-  static void styles(AsyncWebServerRequest* request);
+  static void styles(AsyncWebServerRequest* request);  
+  static void stylesMobile(AsyncWebServerRequest* request);
   static void app(AsyncWebServerRequest* request);
   static void ledSwitchOn(AsyncWebServerRequest* request);
   static void ledSwitchOff(AsyncWebServerRequest* request);

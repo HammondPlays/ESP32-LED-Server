@@ -93,18 +93,28 @@ button:hover {
     background: #43a047;
 }
 
+/* Style the controls container */
+.controls {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  gap: 10px; /* Add spacing between buttons and slider */
+}
+
 #animationParameters {
     display: flex;
     margin: 10px;
     align-items: center;
 }
 
-/* Style the controls container */
 #controls {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center items horizontally */
-  gap: 10px; /* Add spacing between buttons and slider */
+  flex-direction: column;     /* Stack vertically */
+  align-items: center;        /* Center horizontally */
+  justify-content: center;
+  gap: 15px;                  /* Space between switch & slider */
+  margin: 20px auto;
+  width: 100%;
 }
 
 /* Style the button container */

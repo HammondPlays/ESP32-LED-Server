@@ -1,0 +1,96 @@
+@media (max-width: 768px) {
+    body {
+    font-size: 16px;
+    background-color: #f4f4f4;
+  }
+
+  header {
+    padding: 16px 0;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+  }
+
+  h3 {
+    text-align: center;
+    margin: 15px 0 10px;
+  }
+
+  /* Controls section */
+  .controls {
+    padding: 10px;
+  }
+
+  /* Power switch: make it easier to tap */
+  .switch {
+    width: 70px;
+    height: 40px;
+    margin-top: 10px;
+  }
+
+  .slider:before {
+    height: 30px;
+    width: 30px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(30px);
+  }
+
+  /* Sliders */
+  input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #brightnessInput {
+    width: 100%;
+  }
+
+  /* Animations: switch to single column */
+  .animationsContainer {
+    grid-template-columns: 1fr;
+    margin: 10px;
+  }
+
+  .animationsContainer label {
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  /* Animation parameters */
+  #animationParameters {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 10px;
+  }
+
+  #animationParameters label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  #speedSlider,
+  #colorPicker {
+    width: 100%;
+  }
+
+  /* Buttons */
+  button {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+    border-radius: 14px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 10px;
+    color: #666;
+  }
+}

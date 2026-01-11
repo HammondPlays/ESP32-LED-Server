@@ -21,7 +21,12 @@ String Gui::index()
 
 String Gui::styles()
 {
-    return readFile("/frontend/styles.css");
+    return readFile("/frontend/styles-desktop.css");
+}
+
+String Gui::stylesMobile()
+{
+    return readFile("/frontend/styles-mobile.css");
 }
 
 String Gui::app()
