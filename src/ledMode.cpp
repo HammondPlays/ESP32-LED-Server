@@ -3,6 +3,7 @@
 std::map<LedMode, LedModeDetails> getLedModeMap() {
     return {
         {STRIPE, {"STRIPE", {"LED_COUNT"}}},
+        {MULTISTRIPES, {"MULTISTRIPES", {"LED_COUNTS"}}},
         {HEXAGONS,{"HEXAGONS", {"LED_COUNT", "HEXAGON_SIZE", "HEXAGON_COUNT"}}}
     };
 }

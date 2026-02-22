@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include <hexagonBuilder.h>
 #include <config.h>
 #include <animationType.h>
 #include <colorRGB.h>
@@ -19,13 +18,13 @@ public:
     void loop();
     void ledSwitchOff();
     void resetCounter();
-    void boomerang();
-    void rainbow();
+    virtual void boomerang();
+    virtual void rainbow();
     void breathing();
     void staticColor();
     byte color;
 
-private:
+protected:
     int ledCount;
     int delayTime;
     CRGB leds[LED_COUNT];
@@ -34,8 +33,6 @@ private:
     int rainbowColorIndex;
     ColorRGB Wheel(byte wheelPosition);
   
-    Hexagon hexagons[];
-
     ColorRGB getColor();
     uint8_t isNthBitSet(int n);
 };

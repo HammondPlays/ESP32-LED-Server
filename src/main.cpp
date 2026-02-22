@@ -1,11 +1,24 @@
 #include <Arduino.h>
 #include <animation.h>
+#include <hexagonAnimation.h>
 #include <wifiService.h>
 #include <httpServer.h>
 
 #define DELAY 50
 
 Animation animation = Animation(50, DELAY);
+
+void createAnimationObject() {
+  switch (Config::ledMode)
+    {
+        case STRIPE:
+            animation = Animation(Config::ledCount, DELAY);
+            return;
+        case HEXAGONS:
+            animation = HexagonAnimation(Config::ledCount, DELAY, Config::ledCountPerHexagon);
+    }
+    animation.setup();
+}
 
 void setup()
 {
@@ -16,13 +29,19 @@ void setup()
 
   WifiService::setup();
   Serial.println(WiFi.localIP());
-  animation.setup();
+
+  createAnimationObject();
 
   HttpServer::setup();
 }
 
 void loop()
 {
+  if (Config::resetLEDModeConfig) {
+    createAnimationObject();
+    Config::resetLEDModeConfig = false;
+  }
+
   animation.loop();
   // Serial.println("Running");
 }

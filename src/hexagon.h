@@ -6,9 +6,8 @@
 
 class Hexagon {
     public:
-    Hexagon();
     Hexagon(int, int);
-    void display(CRGB[], ColorRGB);
+    void setRGB(CRGB[], ColorRGB);
 
     private:
     int hexagonIndex;
