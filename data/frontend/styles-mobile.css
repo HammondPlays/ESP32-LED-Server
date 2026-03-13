@@ -72,6 +72,16 @@
     margin-bottom: 5px;
     font-weight: bold;
   }
+  
+  .ledModeContainer {
+    grid-template-columns: 1fr;
+    margin: 10px;
+  }
+
+  .ledModeContainer label {
+    padding: 14px;
+    font-size: 1rem;
+  }
 
   #speedSlider,
   #colorPicker {

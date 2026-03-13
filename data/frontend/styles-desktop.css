@@ -71,6 +71,30 @@ input:checked + .slider:before {
     color: white;
     font-weight: bold;
 }
+.animationsContainer {
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.ledModeContainer label {
+    display: block;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.ledModeContainer input {
+    display: none;
+}
+.ledModeContainer input:checked + label {
+    background: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
 
 .container {
     width: 80%;
