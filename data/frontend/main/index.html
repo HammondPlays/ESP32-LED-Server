@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LED</title>
+  <link rel="stylesheet" href="styles-desktop.css" />
+  <link rel="stylesheet" href="styles-mobile.css" />
+</head>
+
+<body>
+  <header>
+    <h1>LED Controll</h1>
+  </header>
+  <main>
+    <div id="controls">
+      <label class="switch">
+        <input type="checkbox" id="powerSwitch">
+        <span class="slider"></span>
+      </label>
+      <input id="brightnessInput" type="range" step="1" min="1" max="100">
+    </div>
+    <div>
+      <h3>Select Animation</h3>
+        <div id="animationsContainer" class="animationsContainer">
+          <!-- Buttons will be dynamically added here -->
+        </div>
+    </div>
+    <div id="animationParameters" style="display: block">
+      <div id="SPEED" style="display: none">
+        <label for="speedSlider">Select Speed:</label>
+        <input id="speedSlider" type="range" min="0.5" max="2.0" step="0.1" value="1.0">
+        <span id="speedValue">1.0</span>
+      </div>
+      <div id="COLOR" style="display: none">
+        <label for="colorPicker">Select Color:</label>
+        <input id="colorPicker" type="color" value="#ff0000">
+      </div>
+    </div>
+    <div class="controls">
+      <button id="animationSubmit">Submit</button>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 LED Controll</p>
+  </footer>
+  <script src="main/app.js"></script>
+</body>
+
+</html>

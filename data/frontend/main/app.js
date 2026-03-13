@@ -20,17 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
   })
     .then((response) => response.json())
     .then((data) => (powerSwitch.checked = data.value)); 
-
-  fetch(host + "/animations", {
-    method: "GET",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Current animation " + data);
-      animationRadioButtons.value = data.animation;
-    });
-
-  // TODO: Fetch and set the initial state of the power switch
 });
 
 powerSwitch.addEventListener("change", () => {

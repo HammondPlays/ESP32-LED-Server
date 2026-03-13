@@ -9,7 +9,7 @@ Animation::Animation(int ledCount, int delay)
 
 void Animation::setup()
 {
-    FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, this->ledCount);
+    FastLED.addLeds<NEOPIXEL, LED_PIN>(this->leds, this->ledCount);
 }
 
 void Animation::loop()

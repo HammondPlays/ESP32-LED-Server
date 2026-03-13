@@ -12,7 +12,8 @@ public:
     static String config();
     static String styles();
     static String stylesMobile();
-    static String app();
+    static String mainApp();
+    static String configApp();
 };
 
 #endif // GUI_H

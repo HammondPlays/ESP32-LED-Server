@@ -69,27 +69,27 @@ void Controller::setAnimationType(AsyncWebServerRequest* request, int animationT
     request->send(200, "text/html", Gui::index());
 }
 
-void Controller::getCurrentLedMode(AsyncWebServerRequest* request)
+void Controller::getLedModes(AsyncWebServerRequest* request)
+{
+    String json = getLedModeJson();
+    request->send(200, "application/json", json);
+}
+
+void Controller::getLedMode(AsyncWebServerRequest* request)
 {
     LedModeDetails ledModeDetails = getLedModeMap()[Config::ledMode];
     DynamicJsonDocument doc(1024);
 
-    JsonObject animationObject = doc.createNestedObject(String(static_cast<int>(Config::animationType)));
-    animationObject["name"] = ledModeDetails.name;
+    JsonObject ledModeObject = doc.createNestedObject(String(static_cast<int>(Config::ledMode)));
+    ledModeObject["name"] = ledModeDetails.name;
 
-    JsonArray parameters = animationObject.createNestedArray("parameters");
+    JsonArray parameters = ledModeObject.createNestedArray("parameters");
     for (const auto& param : ledModeDetails.ledModeParameters) {
         parameters.add(param);
     }
     String json;
     serializeJson(doc, json);
 
-    request->send(200, "application/json", json);
-}
-
-void Controller::getLedModes(AsyncWebServerRequest* request)
-{
-    String json = getAnimationTypeJson();
     request->send(200, "application/json", json);
 }
 
@@ -101,6 +101,22 @@ void Controller::setLedMode(AsyncWebServerRequest* request, int ledMode)
     Config::resetCounter = true;
     Config::save();
     request->send(200, "text/html", Gui::index());
+}
+
+void Controller::getSettings(AsyncWebServerRequest* request)
+{
+
+    DynamicJsonDocument doc(1024);
+
+    JsonObject settingsObject = doc.createNestedObject(String(static_cast<int>(Config::animationType)));
+    settingsObject["ledMode"] = Config::ledMode;
+    settingsObject["ledCount"] = Config::ledCount;
+    settingsObject["ledCountPerHexagon"] = Config::ledCountPerHexagon;
+
+    String json;
+    serializeJson(doc, json);
+
+    request->send(200, "application/json", json);
 }
 
 void Controller::index(AsyncWebServerRequest* request)
@@ -123,9 +139,14 @@ void Controller::stylesMobile(AsyncWebServerRequest* request)
     request->send(200, "text/css", Gui::stylesMobile());
 }
 
-void Controller::app(AsyncWebServerRequest* request)
+void Controller::mainApp(AsyncWebServerRequest* request)
 {
-    request->send(200, "text/plain", Gui::app());
+    request->send(200, "text/plain", Gui::mainApp());
+}
+
+void Controller::configApp(AsyncWebServerRequest* request)
+{
+    request->send(200, "text/plain", Gui::configApp());
 }
 
 void Controller::notFound(AsyncWebServerRequest* request)

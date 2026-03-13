@@ -16,12 +16,12 @@ String readFile(String filename)
 
 String Gui::index()
 {
-    return readFile("/frontend/index.html");
+    return readFile("/frontend/main/index.html");
 }
 
 String Gui::config()
 {
-    return readFile("/frontend/config.html");
+    return readFile("/frontend/config/config.html");
 }
 
 String Gui::styles()
@@ -34,7 +34,12 @@ String Gui::stylesMobile()
     return readFile("/frontend/styles-mobile.css");
 }
 
-String Gui::app()
+String Gui::mainApp()
 {
-    return readFile("/frontend/app.js");
+    return readFile("/frontend/main/app.js");
+}
+
+String Gui::configApp()
+{
+    return readFile("/frontend/config/app.js");
 }

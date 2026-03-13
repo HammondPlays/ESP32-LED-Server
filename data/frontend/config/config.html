@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LED</title>
+    <link rel="stylesheet" href="styles-desktop.css" />
+    <link rel="stylesheet" href="styles-mobile.css" />
+</head>
+
+<body>
+    <header>
+        <h1>LED Configuration</h1>
+    </header>
+    <h3>Select LED-Mode</h3>
+    <div id="ledModeContainer" class="ledModeContainer">
+        <!-- Buttons will be dynamically added here -->
+    </div>
+    <div id="ledModeParameters" style="display: block">
+        <div id="LEDCOUNT" style="display: none">
+            <label for="ledCountInput">Select LED Count:</label>
+            <input id="ledCountInput" type="number" min="1" max="500" step="1" value="50" inputmode="numeric">
+            <span id="ledCountValue">50</span>
+        </div>
+        <div id="COLOR" style="display: none">
+            <label for="colorPicker">Select Color:</label>
+            <input id="colorPicker" type="color" value="#ff0000">
+        </div>
+    </div>
+    <div class="controls">
+        <button id="ledModeSubmit">Submit</button>
+    </div>
+    <script src="config/app.js"></script>
+</body>
+
+</html>
