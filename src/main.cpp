@@ -8,16 +8,17 @@
 
 Animation animation = Animation(50, DELAY);
 
-void createAnimationObject() {
+void createAnimationObject()
+{
   switch (Config::ledMode)
-    {
-        case STRIPE:
-            animation = Animation(Config::ledCount, DELAY);
-            return;
-        case SHAPE:
-            animation = ShapeAnimation(Config::ledCount, DELAY, Config::ledCountPerShape);
-    }
-    animation.setup();
+  {
+  case STRIPE:
+    animation = Animation(Config::ledCount, DELAY);
+    return;
+  case SHAPE:
+    animation = ShapeAnimation(Config::ledCount, DELAY, Config::ledCountPerShape);
+  }
+  animation.setup();
 }
 
 void setup()
@@ -37,7 +38,8 @@ void setup()
 
 void loop()
 {
-  if (Config::resetLEDModeConfig) {
+  if (Config::resetLEDModeConfig)
+  {
     createAnimationObject();
     Config::resetLEDModeConfig = false;
   }

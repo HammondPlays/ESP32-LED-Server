@@ -32,7 +32,7 @@ protected:
     // Rainbow
     int rainbowColorIndex;
     ColorRGB Wheel(byte wheelPosition);
-  
+
     ColorRGB getColor();
     uint8_t isNthBitSet(int n);
 };

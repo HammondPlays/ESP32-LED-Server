@@ -1,13 +1,13 @@
 #include "controller.h"
 
-void Controller::ledSwitchOn(AsyncWebServerRequest* request)
+void Controller::ledSwitchOn(AsyncWebServerRequest *request)
 {
     Config::ledState = true;
     Config::save();
     request->send(200, "text/html", Gui::index());
 }
 
-void Controller::ledSwitchOff(AsyncWebServerRequest* request)
+void Controller::ledSwitchOff(AsyncWebServerRequest *request)
 {
     Config::ledState = false;
     Config::resetCounter = true;
@@ -15,37 +15,41 @@ void Controller::ledSwitchOff(AsyncWebServerRequest* request)
     request->send(200, "text/html", Gui::index());
 }
 
-void Controller::ledPower(AsyncWebServerRequest* request)
+void Controller::ledPower(AsyncWebServerRequest *request)
 {
     String json = "{ \"value\": " + String(Config::ledState ? "true" : "false") + "}";
     request->send(200, "application/json", json);
 }
 
-void Controller::getBrightness(AsyncWebServerRequest* request)
+void Controller::getBrightness(AsyncWebServerRequest *request)
 {
     Serial.println(Config::brightness);
     String json = "{ \"brightness\": \"" + String(Config::brightness) + "\"}";
     request->send(200, "application/json", json);
 }
 
-void Controller::setBrightness(AsyncWebServerRequest* request, int brightness)
+void Controller::setBrightness(AsyncWebServerRequest *request, int brightness)
 {
     Config::brightness = brightness;
     Config::save();
     request->send(200, "text/html", Gui::index());
 }
 
-void Controller::getCurrentAnimation(AsyncWebServerRequest* request)
+void Controller::getCurrentAnimation(AsyncWebServerRequest *request)
 {
     AnimationDetails animationDetails = getAnimationTypeMap()[Config::animationType];
     DynamicJsonDocument doc(1024);
 
     JsonObject animationObject = doc.createNestedObject(String(static_cast<int>(Config::animationType)));
 
-    for (const auto& param : animationDetails.animationParameters) {
-        if (param == "COLOR") {
+    for (const auto &param : animationDetails.animationParameters)
+    {
+        if (param == "COLOR")
+        {
             animationObject["color"] = Config::color.toHex();
-        } else if (param == "SPEED") {
+        }
+        else if (param == "SPEED")
+        {
             animationObject["speed"] = Config::speed;
         }
     }
@@ -55,13 +59,13 @@ void Controller::getCurrentAnimation(AsyncWebServerRequest* request)
     request->send(200, "application/json", json);
 }
 
-void Controller::getAnimationTypes(AsyncWebServerRequest* request)
+void Controller::getAnimationTypes(AsyncWebServerRequest *request)
 {
     String json = getAnimationTypeJson();
     request->send(200, "application/json", json);
 }
 
-void Controller::setAnimationType(AsyncWebServerRequest* request, int animationType)
+void Controller::setAnimationType(AsyncWebServerRequest *request, int animationType)
 {
     Serial.printf("Previous animation type: %d\n", Config::animationType);
     Serial.printf("Setting animation type to %d\n", animationType);
@@ -71,25 +75,31 @@ void Controller::setAnimationType(AsyncWebServerRequest* request, int animationT
     request->send(200, "text/html", Gui::index());
 }
 
-void Controller::getLedModes(AsyncWebServerRequest* request)
+void Controller::getLedModes(AsyncWebServerRequest *request)
 {
     String json = getLedModeJson();
     request->send(200, "application/json", json);
 }
 
-void Controller::getLedMode(AsyncWebServerRequest* request)
+void Controller::getLedMode(AsyncWebServerRequest *request)
 {
     LedModeDetails ledModeDetails = getLedModeMap()[Config::ledMode];
     DynamicJsonDocument doc(1024);
 
     JsonObject ledModeObject = doc.createNestedObject(String(static_cast<int>(Config::ledMode)));
 
-    for (const auto& param : ledModeDetails.ledModeParameters) {
-        if (param == "LED_COUNT") {
+    for (const auto &param : ledModeDetails.ledModeParameters)
+    {
+        if (param == "LED_COUNT")
+        {
             ledModeObject["ledCount"] = Config::ledCount;
-        } else if (param == "SHAPE_SIZE") {
+        }
+        else if (param == "SHAPE_SIZE")
+        {
             ledModeObject["shapeSize"] = Config::ledCountPerShape;
-        } else if (param == "SHAPE_COUNT") {
+        }
+        else if (param == "SHAPE_COUNT")
+        {
             ledModeObject["shapeCount"] = Config::ledCount / Config::ledCountPerShape;
         }
     }
@@ -99,7 +109,7 @@ void Controller::getLedMode(AsyncWebServerRequest* request)
     request->send(200, "application/json", json);
 }
 
-void Controller::setLedMode(AsyncWebServerRequest* request, int ledMode)
+void Controller::setLedMode(AsyncWebServerRequest *request, int ledMode)
 {
     Serial.printf("Previous led mode: %d\n", Config::ledMode);
     Serial.printf("Setting led mode to %d\n", ledMode);
@@ -109,7 +119,7 @@ void Controller::setLedMode(AsyncWebServerRequest* request, int ledMode)
     request->send(200, "text/html", Gui::index());
 }
 
-void Controller::getSettings(AsyncWebServerRequest* request)
+void Controller::getSettings(AsyncWebServerRequest *request)
 {
 
     DynamicJsonDocument doc(1024);
@@ -125,37 +135,37 @@ void Controller::getSettings(AsyncWebServerRequest* request)
     request->send(200, "application/json", json);
 }
 
-void Controller::index(AsyncWebServerRequest* request)
+void Controller::index(AsyncWebServerRequest *request)
 {
     request->send(200, "text/html", Gui::index());
 }
 
-void Controller::config(AsyncWebServerRequest* request)
+void Controller::config(AsyncWebServerRequest *request)
 {
     request->send(200, "text/html", Gui::config());
 }
 
-void Controller::styles(AsyncWebServerRequest* request)
+void Controller::styles(AsyncWebServerRequest *request)
 {
     request->send(200, "text/css", Gui::styles());
 }
 
-void Controller::stylesMobile(AsyncWebServerRequest* request)
+void Controller::stylesMobile(AsyncWebServerRequest *request)
 {
     request->send(200, "text/css", Gui::stylesMobile());
 }
 
-void Controller::mainApp(AsyncWebServerRequest* request)
+void Controller::mainApp(AsyncWebServerRequest *request)
 {
     request->send(200, "text/plain", Gui::mainApp());
 }
 
-void Controller::configApp(AsyncWebServerRequest* request)
+void Controller::configApp(AsyncWebServerRequest *request)
 {
     request->send(200, "text/plain", Gui::configApp());
 }
 
-void Controller::notFound(AsyncWebServerRequest* request)
+void Controller::notFound(AsyncWebServerRequest *request)
 {
     request->send(404, "text/plain", "Not found");
 }

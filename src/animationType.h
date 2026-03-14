@@ -6,14 +6,16 @@
 #include "ArduinoJson.h"
 #include <vector>
 
-enum AnimationType {
+enum AnimationType
+{
     BOOMERANG,
     RAINBOW,
     BREATHING,
     STATIC
 };
 
-struct AnimationDetails {
+struct AnimationDetails
+{
     std::string name;
     std::vector<std::string> animationParameters; // List of parameters
 };

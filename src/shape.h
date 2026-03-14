@@ -4,12 +4,13 @@
 #include <FastLED.h>
 #include <colorRGB.h>
 
-class Shapes {
-    public:
+class Shapes
+{
+public:
     Shapes(int, int);
     void setRGB(CRGB[], ColorRGB);
 
-    private:
+private:
     int hexagonIndex;
     int ledCount;
 };

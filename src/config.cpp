@@ -1,18 +1,20 @@
 #include "config.h"
 
-void Config::load() {
+void Config::load()
+{
     File file = SPIFFS.open("/config.json", "r");
 
-    if(!file) {
-    Serial.println("Failed to open config file.");
-    Config::save();
-    return;
+    if (!file)
+    {
+        Serial.println("Failed to open config file.");
+        Config::save();
+        return;
     }
 
     Serial.println("Config loaded");
 
     StaticJsonDocument<1024> doc;
-    deserializeJson(doc, file);	
+    deserializeJson(doc, file);
 
     Config::ledState = doc["ledState"] | true;
     Config::brightness = doc["brightness"] | 0.25;
@@ -24,7 +26,8 @@ void Config::load() {
     file.close();
 }
 
-void Config::save() {
+void Config::save()
+{
     DynamicJsonDocument doc(1024);
     doc["ledState"] = Config::ledState;
     doc["brightness"] = Config::brightness;
@@ -35,7 +38,8 @@ void Config::save() {
 
     File file = SPIFFS.open("/config.json", "w");
 
-    if(!file) {
+    if (!file)
+    {
         Serial.println("Failed to open config file for writing.");
         return;
     }

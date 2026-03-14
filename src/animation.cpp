@@ -19,7 +19,7 @@ void Animation::loop()
         resetCounter();
         Config::resetCounter = false;
     }
-    
+
     if (!Config::ledState)
     {
         ledSwitchOff();
@@ -28,18 +28,18 @@ void Animation::loop()
 
     switch (Config::animationType)
     {
-        case BOOMERANG:
-            boomerang();
-            return;
-        case RAINBOW:
-            rainbow();
-            return;
-        case BREATHING:
-            breathing();
-            return;
-        case STATIC:
-            staticColor();
-            return;
+    case BOOMERANG:
+        boomerang();
+        return;
+    case RAINBOW:
+        rainbow();
+        return;
+    case BREATHING:
+        breathing();
+        return;
+    case STATIC:
+        staticColor();
+        return;
     }
 }
 
@@ -59,34 +59,11 @@ ColorRGB Animation::getColor()
     return ColorRGB(r, g, b, 100);
 }
 
-void Animation::breathing() 
+void Animation::breathing()
 {
     ColorRGB color = ColorRGB(Config::color.r, Config::color.g, Config::color.b, Config::brightness);
     int currentBrightness = 0;
-    while (currentBrightness < Config::brightness) {
-        if (Config::animationType != BREATHING)
-        {
-            return;
-        }
-        
-        ColorRGB currentColor = ColorRGB(Config::color.r, Config::color.g, Config::color.b, currentBrightness);
-        for (int i = 0; i < this->ledCount; i++)
-        {
-            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
-        }
-        FastLED.show();
-        delay(this->delayTime / Config::speed);
-
-        if (currentBrightness >= 50) 
-            currentBrightness +=4;
-        if (currentBrightness >= 15) 
-            currentBrightness +=2;
-        else
-            currentBrightness++;
-    }
-
-    currentBrightness = Config::brightness;
-    while(currentBrightness >= 0)
+    while (currentBrightness < Config::brightness)
     {
         if (Config::animationType != BREATHING)
         {
@@ -101,10 +78,34 @@ void Animation::breathing()
         FastLED.show();
         delay(this->delayTime / Config::speed);
 
-        if (currentBrightness > 50) 
-            currentBrightness -=4;
-        if (currentBrightness > 15) 
-            currentBrightness -=2;
+        if (currentBrightness >= 50)
+            currentBrightness += 4;
+        if (currentBrightness >= 15)
+            currentBrightness += 2;
+        else
+            currentBrightness++;
+    }
+
+    currentBrightness = Config::brightness;
+    while (currentBrightness >= 0)
+    {
+        if (Config::animationType != BREATHING)
+        {
+            return;
+        }
+
+        ColorRGB currentColor = ColorRGB(Config::color.r, Config::color.g, Config::color.b, currentBrightness);
+        for (int i = 0; i < this->ledCount; i++)
+        {
+            leds[i].setRGB(currentColor.r, currentColor.g, currentColor.b);
+        }
+        FastLED.show();
+        delay(this->delayTime / Config::speed);
+
+        if (currentBrightness > 50)
+            currentBrightness -= 4;
+        if (currentBrightness > 15)
+            currentBrightness -= 2;
         else
             currentBrightness--;
     }
@@ -112,7 +113,7 @@ void Animation::breathing()
     delay(this->delayTime * 10);
 }
 
-void Animation::staticColor() 
+void Animation::staticColor()
 {
     ColorRGB color = ColorRGB(Config::color.r, Config::color.g, Config::color.b, Config::brightness);
     for (int i = 0; i < this->ledCount; i++)
@@ -135,15 +136,15 @@ void Animation::boomerang()
         ColorRGB colorWithBrightness = ColorRGB(color.r, color.g, color.b, Config::brightness);
 
         for (int i = 0; i < boomerangPosition; i++)
-        {   
+        {
             leds[i].setRGB(colorWithBrightness.r, colorWithBrightness.g, colorWithBrightness.b);
-        }    
+        }
         FastLED.show();
         delay(this->delayTime / Config::speed);
     }
 
     color = getColor();
-    
+
     for (int boomerangPosition = this->ledCount; boomerangPosition >= 0; boomerangPosition--)
     {
         if (Config::animationType != BOOMERANG)
@@ -154,9 +155,9 @@ void Animation::boomerang()
         ColorRGB colorWithBrightness = ColorRGB(color.r, color.g, color.b, Config::brightness);
 
         for (int i = this->ledCount; i > boomerangPosition; i--)
-        {   
+        {
             leds[i].setRGB(colorWithBrightness.r, colorWithBrightness.g, colorWithBrightness.b);
-        }    
+        }
         FastLED.show();
         delay(this->delayTime / Config::speed);
     }

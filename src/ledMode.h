@@ -6,12 +6,14 @@
 #include <vector>
 #include "ArduinoJson.h"
 
-enum LedMode {
+enum LedMode
+{
     STRIPE,
     SHAPE
 };
 
-struct LedModeDetails {
+struct LedModeDetails
+{
     std::string name;
     std::vector<std::string> ledModeParameters; // List of parameters
 };

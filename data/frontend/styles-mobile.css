@@ -1,5 +1,5 @@
 @media (max-width: 768px) {
-    body {
+  body {
     font-size: 16px;
     background-color: #f4f4f4;
   }
@@ -35,7 +35,7 @@
     width: 30px;
   }
 
-  input:checked + .slider:before {
+  input:checked+.slider:before {
     transform: translateX(30px);
   }
 
@@ -72,7 +72,7 @@
     margin-bottom: 5px;
     font-weight: bold;
   }
-  
+
   .ledModeContainer {
     grid-template-columns: 1fr;
     margin: 10px;

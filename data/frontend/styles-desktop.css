@@ -23,28 +23,40 @@ h1 {
     height: 34px;
     margin-top: 20px;
 }
-.switch input { display: none; }
+
+.switch input {
+    display: none;
+}
+
 .slider {
     position: absolute;
     cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
 }
+
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px; width: 26px;
-    left: 4px; bottom: 4px;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
     background-color: white;
     transition: .4s;
     border-radius: 50%;
 }
-input:checked + .slider {
+
+input:checked+.slider {
     background-color: #4CAF50;
 }
-input:checked + .slider:before {
+
+input:checked+.slider:before {
     transform: translateX(26px);
 }
 
@@ -54,6 +66,7 @@ input:checked + .slider:before {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
+
 .animationsContainer label {
     display: block;
     background: #f1f1f1;
@@ -63,14 +76,17 @@ input:checked + .slider:before {
     transition: all 0.3s ease;
     text-align: center;
 }
+
 .animationsContainer input {
     display: none;
 }
-.animationsContainer input:checked + label {
+
+.animationsContainer input:checked+label {
     background: #4CAF50;
     color: white;
     font-weight: bold;
 }
+
 .animationsContainer {
     margin: 20px;
     display: grid;
@@ -87,10 +103,12 @@ input:checked + .slider:before {
     transition: all 0.3s ease;
     text-align: center;
 }
+
 .ledModeContainer input {
     display: none;
 }
-.ledModeContainer input:checked + label {
+
+.ledModeContainer input:checked+label {
     background: #4CAF50;
     color: white;
     font-weight: bold;
@@ -113,16 +131,20 @@ button {
     transition: background 0.3s ease;
     margin: 15px 0;
 }
+
 button:hover {
     background: #43a047;
 }
 
 /* Style the controls container */
 .controls {
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center items horizontally */
-  gap: 10px; /* Add spacing between buttons and slider */
+    display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
+    align-items: center;
+    /* Center items horizontally */
+    gap: 10px;
+    /* Add spacing between buttons and slider */
 }
 
 #animationParameters {
@@ -132,22 +154,27 @@ button:hover {
 }
 
 #controls {
-  display: flex;
-  flex-direction: column;     /* Stack vertically */
-  align-items: center;        /* Center horizontally */
-  justify-content: center;
-  gap: 15px;                  /* Space between switch & slider */
-  margin: 20px auto;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* Stack vertically */
+    align-items: center;
+    /* Center horizontally */
+    justify-content: center;
+    gap: 15px;
+    /* Space between switch & slider */
+    margin: 20px auto;
+    width: 100%;
 }
 
 /* Style the button container */
 #buttonContainer {
-  display: flex;
-  gap: 10px; /* Add spacing between the buttons */
+    display: flex;
+    gap: 10px;
+    /* Add spacing between the buttons */
 }
 
 /* Style the slider */
 #brightnessInput {
-  width: 80%; /* Adjust the width of the slider */
+    width: 80%;
+    /* Adjust the width of the slider */
 }
