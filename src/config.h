@@ -13,7 +13,7 @@ class Config
 {
 public:
   inline static int ledCount = 50;
-  inline static int ledCountPerHexagon = 6;
+  inline static int ledCountPerShape = 6;
   inline static LedMode ledMode = LedMode::STRIPE;
   inline static bool ledState = true;
   inline static int brightness = 25;

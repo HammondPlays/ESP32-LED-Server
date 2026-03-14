@@ -97,10 +97,10 @@ void handleLedModePUT(AsyncWebServerRequest* request, uint8_t* data, size_t len,
             resetLEDModeConfig = true;
         }
 
-        if (jsonDoc.containsKey("ledCountPerHexagon")) {
+        if (jsonDoc.containsKey("ledCountPerShape")) {
             int ledCountPerHexagon = jsonDoc["ledCountPerHexagon"];
             Serial.printf("LedCountPerHexagon: %d\n", ledCountPerHexagon);
-            Config::ledCountPerHexagon = ledCountPerHexagon;
+            Config::ledCountPerShape = ledCountPerHexagon;
             resetLEDModeConfig = true;
         }
 
@@ -147,7 +147,7 @@ void handleSettingsPUT(AsyncWebServerRequest* request, uint8_t* data, size_t len
         if (jsonDoc.containsKey("ledCountPerHexagon")) {
             int ledCountPerHexagon = jsonDoc["ledCountPerHexagon"];
             Serial.printf("LedCountPerHexagon: %d\n", ledCountPerHexagon);
-            Config::ledCountPerHexagon = ledCountPerHexagon;
+            Config::ledCountPerShape = ledCountPerHexagon;
             resetLEDModeConfig = true;
         }
 

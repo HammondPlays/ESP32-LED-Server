@@ -2,17 +2,17 @@
 #define HEXAGONANIMATION_H
 
 #include "animation.h"
-#include <hexagon.h>
+#include <shape.h>
 #include <vector>
 
-class HexagonAnimation : public Animation {
+class ShapeAnimation : public Animation {
     public:
-        HexagonAnimation(int, int, int);
+        ShapeAnimation(int, int, int);
         void boomerang() override;
         void rainbow() override;
 
     private:
-        std::vector<Hexagon> hexagons;
+        std::vector<Shapes> shapes;
 };
 
 #endif

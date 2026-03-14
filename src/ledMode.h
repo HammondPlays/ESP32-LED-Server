@@ -8,8 +8,7 @@
 
 enum LedMode {
     STRIPE,
-    MULTISTRIPES,
-    HEXAGONS
+    SHAPE
 };
 
 struct LedModeDetails {

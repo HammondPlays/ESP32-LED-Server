@@ -19,7 +19,7 @@ void Config::load() {
     Config::animationType = doc["animationType"] | AnimationType::RAINBOW;
     Config::ledMode = doc["ledMode"] | LedMode::STRIPE;
     Config::ledCount = doc["ledCount"] | 50;
-    Config::ledCountPerHexagon = doc["ledCountPerHexagon"] | 6;
+    Config::ledCountPerShape = doc["ledCountPerShape"] | 6;
 
     file.close();
 }
@@ -31,7 +31,7 @@ void Config::save() {
     doc["animationType"] = static_cast<int>(Config::animationType);
     doc["ledMode"] = static_cast<int>(Config::ledMode);
     doc["ledCount"] = Config::ledCount;
-    doc["ledCountPerHexagon"] = Config::ledCountPerHexagon;
+    doc["ledCountPerShape"] = Config::ledCountPerShape;
 
     File file = SPIFFS.open("/config.json", "w");
 

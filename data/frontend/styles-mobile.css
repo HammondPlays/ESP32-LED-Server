@@ -83,8 +83,8 @@
     font-size: 1rem;
   }
 
-  #speedSlider,
-  #colorPicker {
+  #speedInput,
+  #colorInput {
     width: 100%;
   }
 

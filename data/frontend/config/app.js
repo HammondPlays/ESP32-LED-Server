@@ -37,7 +37,6 @@ document.getElementById("ledModeSubmit").addEventListener("click", function () {
     });
 });
 
-
 document.getElementById("ledCountInput").addEventListener("input", function () {
   const ledCountValue = this.value;
   document.getElementById("ledCountValue").textContent = ledCountValue;

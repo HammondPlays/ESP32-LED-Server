@@ -4,9 +4,9 @@
 #include <FastLED.h>
 #include <colorRGB.h>
 
-class Hexagon {
+class Shapes {
     public:
-    Hexagon(int, int);
+    Shapes(int, int);
     void setRGB(CRGB[], ColorRGB);
 
     private:

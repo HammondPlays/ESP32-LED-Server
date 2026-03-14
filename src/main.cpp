@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <animation.h>
-#include <hexagonAnimation.h>
+#include <shapeAnimation.h>
 #include <wifiService.h>
 #include <httpServer.h>
 
@@ -14,8 +14,8 @@ void createAnimationObject() {
         case STRIPE:
             animation = Animation(Config::ledCount, DELAY);
             return;
-        case HEXAGONS:
-            animation = HexagonAnimation(Config::ledCount, DELAY, Config::ledCountPerHexagon);
+        case SHAPE:
+            animation = ShapeAnimation(Config::ledCount, DELAY, Config::ledCountPerShape);
     }
     animation.setup();
 }

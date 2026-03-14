@@ -41,11 +41,13 @@ void Controller::getCurrentAnimation(AsyncWebServerRequest* request)
     DynamicJsonDocument doc(1024);
 
     JsonObject animationObject = doc.createNestedObject(String(static_cast<int>(Config::animationType)));
-    animationObject["name"] = animationDetails.name;
 
-    JsonArray parameters = animationObject.createNestedArray("parameters");
     for (const auto& param : animationDetails.animationParameters) {
-        parameters.add(param);
+        if (param == "COLOR") {
+            animationObject["color"] = Config::color.toHex();
+        } else if (param == "SPEED") {
+            animationObject["speed"] = Config::speed;
+        }
     }
     String json;
     serializeJson(doc, json);
@@ -81,11 +83,15 @@ void Controller::getLedMode(AsyncWebServerRequest* request)
     DynamicJsonDocument doc(1024);
 
     JsonObject ledModeObject = doc.createNestedObject(String(static_cast<int>(Config::ledMode)));
-    ledModeObject["name"] = ledModeDetails.name;
 
-    JsonArray parameters = ledModeObject.createNestedArray("parameters");
     for (const auto& param : ledModeDetails.ledModeParameters) {
-        parameters.add(param);
+        if (param == "LED_COUNT") {
+            ledModeObject["ledCount"] = Config::ledCount;
+        } else if (param == "SHAPE_SIZE") {
+            ledModeObject["shapeSize"] = Config::ledCountPerShape;
+        } else if (param == "SHAPE_COUNT") {
+            ledModeObject["shapeCount"] = Config::ledCount / Config::ledCountPerShape;
+        }
     }
     String json;
     serializeJson(doc, json);
@@ -111,7 +117,7 @@ void Controller::getSettings(AsyncWebServerRequest* request)
     JsonObject settingsObject = doc.createNestedObject(String(static_cast<int>(Config::animationType)));
     settingsObject["ledMode"] = Config::ledMode;
     settingsObject["ledCount"] = Config::ledCount;
-    settingsObject["ledCountPerHexagon"] = Config::ledCountPerHexagon;
+    settingsObject["ledCountPerShape"] = Config::ledCountPerShape;
 
     String json;
     serializeJson(doc, json);

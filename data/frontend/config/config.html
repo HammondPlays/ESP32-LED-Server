@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LED</title>
+    <title>Configuration</title>
     <link rel="stylesheet" href="styles-desktop.css" />
     <link rel="stylesheet" href="styles-mobile.css" />
 </head>
@@ -18,14 +18,20 @@
         <!-- Buttons will be dynamically added here -->
     </div>
     <div id="ledModeParameters" style="display: block">
-        <div id="LEDCOUNT" style="display: none">
-            <label for="ledCountInput">Select LED Count:</label>
+        <div id="LED_COUNT" style="display: none">
+            <label for="ledCountInput">Enter LED Count:</label>
             <input id="ledCountInput" type="number" min="1" max="500" step="1" value="50" inputmode="numeric">
             <span id="ledCountValue">50</span>
         </div>
-        <div id="COLOR" style="display: none">
-            <label for="colorPicker">Select Color:</label>
-            <input id="colorPicker" type="color" value="#ff0000">
+        <div id="SHAPE_SIZE" style="display: none">
+            <label for="shapeSizeInput">Enter LED Count per Shape:</label>
+            <input id="shapeSizeInput" type="number" min="1" max="100" step="1" value="6" inputmode="numeric">
+            <span id="shapeSizeValue">6</span>
+        </div>
+        <div id="SHAPE_COUNT" style="display: none">
+            <label for="shapeCountInput">Ender amount of Shapes:</label>
+            <input id="shapeCountInput" type="number" min="1" max="100" step="1" value="6" inputmode="numeric">
+            <span id="shapeCountValue">6</span>
         </div>
     </div>
     <div class="controls">

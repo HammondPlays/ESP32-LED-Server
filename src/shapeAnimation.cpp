@@ -1,18 +1,18 @@
-#include "hexagonAnimation.h"
+#include "shapeAnimation.h"
 
-    HexagonAnimation::HexagonAnimation(int ledcount, int delay, int ledPerHexagon)
+    ShapeAnimation::ShapeAnimation(int ledcount, int delay, int ledPerHexagon)
     : Animation(ledcount, delay)
     {
         int hexagonCount = ledcount / ledPerHexagon;
         for (int i = 0; i < hexagonCount; i++) {
-            hexagons.push_back(Hexagon(0, ledPerHexagon));
+            shapes.push_back(Shapes(i, ledPerHexagon));
         }
     }
 
-void HexagonAnimation::boomerang()
+void ShapeAnimation::boomerang()
 {
     ColorRGB color = getColor();
-    for (int boomerangPosition = 0; boomerangPosition < this->hexagons.size(); boomerangPosition++)
+    for (int boomerangPosition = 0; boomerangPosition < this->shapes.size(); boomerangPosition++)
     {
         if (Config::animationType != BOOMERANG)
         {
@@ -23,7 +23,7 @@ void HexagonAnimation::boomerang()
 
         for (int i = 0; i < boomerangPosition; i++)
         {   
-            this->hexagons[i].setRGB(this->leds, colorWithBrightness);
+            this->shapes[i].setRGB(this->leds, colorWithBrightness);
         }    
         FastLED.show();
         delay(this->delayTime / Config::speed);
@@ -31,7 +31,7 @@ void HexagonAnimation::boomerang()
 
     color = getColor();
     
-    for (int boomerangPosition = this->hexagons.size(); boomerangPosition >= 0; boomerangPosition--)
+    for (int boomerangPosition = this->shapes.size(); boomerangPosition >= 0; boomerangPosition--)
     {
         if (Config::animationType != BOOMERANG)
         {
@@ -42,24 +42,24 @@ void HexagonAnimation::boomerang()
 
         for (int i = this->ledCount; i > boomerangPosition; i--)
         {   
-            this->hexagons[i].setRGB(leds, colorWithBrightness);
+            this->shapes[i].setRGB(leds, colorWithBrightness);
         }    
         FastLED.show();
         delay(this->delayTime / Config::speed);
     }
 }
 
-void HexagonAnimation::rainbow()
+void ShapeAnimation::rainbow()
 {
     if (this->rainbowColorIndex >= 256)
     {
         this->rainbowColorIndex = 0;
     }
 
-    for (uint16_t i = 0; i < this->hexagons.size(); i++)
+    for (uint16_t i = 0; i < this->shapes.size(); i++)
     {
         ColorRGB color = Wheel(((i * 256 / this->ledCount) + this->rainbowColorIndex) & 255);
-        this->hexagons[this->hexagons.size() - 1 - i].setRGB(leds, color);
+        this->shapes[this->shapes.size() - 1 - i].setRGB(leds, color);
     }
 
     FastLED.show();

@@ -8,6 +8,12 @@ ColorRGB::ColorRGB(uint8_t r, uint8_t g, uint8_t b, double brightness)
     this->b = uint8_t(b * brightness);
 }
 
+std::string ColorRGB::toHex() {
+    char hexColor[8];
+    snprintf(hexColor, sizeof(hexColor), "#%02X%02X%02X", this->r, this->g, this->b);
+    return std::string(hexColor);
+}
+
 ColorRGB ColorRGB::hexToRGB(const std::string& hexColor) {
     // Ensure the hex color starts with '#'
     if (hexColor[0] != '#' || hexColor.length() != 7) {
