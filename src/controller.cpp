@@ -35,7 +35,7 @@ void Controller::setBrightness(AsyncWebServerRequest *request, int brightness)
     request->send(200, "text/html", Gui::index());
 }
 
-void Controller::getCurrentAnimation(AsyncWebServerRequest *request)
+void Controller::getAnimation(AsyncWebServerRequest *request)
 {
     AnimationDetails animationDetails = getAnimationTypeMap()[Config::animationType];
     DynamicJsonDocument doc(1024);
@@ -59,7 +59,7 @@ void Controller::getCurrentAnimation(AsyncWebServerRequest *request)
     request->send(200, "application/json", json);
 }
 
-void Controller::getAnimationTypes(AsyncWebServerRequest *request)
+void Controller::getAnimations(AsyncWebServerRequest *request)
 {
     String json = getAnimationTypeJson();
     request->send(200, "application/json", json);

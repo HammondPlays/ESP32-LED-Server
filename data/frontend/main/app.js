@@ -43,7 +43,7 @@ document.getElementById("animationSubmit").addEventListener("click", function ()
   const color = document.getElementById("colorInput").value;
   const speed = document.getElementById("speedInput").value;
   //const mode = document.querySelector('input[name="mode"]:checked').value;
-  fetch(host + "/animations", {
+  fetch(host + "/animation", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -160,7 +160,7 @@ function updateLedPower(powerSwitch) {
 
 async function fetchAnimationTypes() {
   try {
-    const response = await fetch(host + "/animation-types");
+    const response = await fetch(host + "/animations");
     const data = await response.json();
 
     animationTypesCache = data;
@@ -188,7 +188,7 @@ function fetchLedPower() {
 }
 
 function fetchCurrentAnimation() {
-  return fetch(host + "/animations", {
+  return fetch(host + "/animation", {
     method: "GET",
   })
     .then((response) => response.json());

@@ -18,8 +18,8 @@ public:
   static void ledPower(AsyncWebServerRequest *request);
   static void getBrightness(AsyncWebServerRequest *request);
   static void setBrightness(AsyncWebServerRequest *request, int brightness);
-  static void getCurrentAnimation(AsyncWebServerRequest *request);
-  static void getAnimationTypes(AsyncWebServerRequest *request);
+  static void getAnimation(AsyncWebServerRequest *request);
+  static void getAnimations(AsyncWebServerRequest *request);
   static void setAnimationType(AsyncWebServerRequest *request, int animationType);
   static void getLedModes(AsyncWebServerRequest *request);
   static void getLedMode(AsyncWebServerRequest *request);
