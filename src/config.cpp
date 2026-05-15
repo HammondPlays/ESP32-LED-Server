@@ -17,7 +17,8 @@ void Config::load()
     deserializeJson(doc, file);
 
     Config::ledState = doc["ledState"] | true;
-    Config::brightness = doc["brightness"] | 0.25;
+    Config::brightness = doc["brightness"] | 1;
+    Config::color = ColorRGB::hexToRGB(doc["color"] | ColorRGB(255, 0, 0, Config::brightness).toHex());
     Config::animationType = doc["animationType"] | AnimationType::RAINBOW;
     Config::ledMode = doc["ledMode"] | LedMode::STRIPE;
     Config::ledCount = doc["ledCount"] | 50;
@@ -31,6 +32,7 @@ void Config::save()
     DynamicJsonDocument doc(1024);
     doc["ledState"] = Config::ledState;
     doc["brightness"] = Config::brightness;
+    doc["color"] = Config::color.toHex();
     doc["animationType"] = static_cast<int>(Config::animationType);
     doc["ledMode"] = static_cast<int>(Config::ledMode);
     doc["ledCount"] = Config::ledCount;
