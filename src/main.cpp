@@ -14,7 +14,6 @@ void createAnimationObject()
   {
   case STRIPE:
     animation = Animation(Config::ledCount, DELAY);
-    return;
   case SHAPE:
     animation = ShapeAnimation(Config::ledCount, DELAY, Config::ledCountPerShape);
   }
