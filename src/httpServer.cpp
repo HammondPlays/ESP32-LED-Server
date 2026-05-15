@@ -124,6 +124,7 @@ void handleLedModePUT(AsyncWebServerRequest *request, uint8_t *data, size_t len,
             Config::ledMode = ledMode;
             Config::resetLEDModeConfig = true;
         }
+        Config::save();
 
         request->send(200, "application/json", "{\"status\":\"success\"}");
     }
